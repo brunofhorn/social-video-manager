@@ -6,129 +6,12 @@ import dayjs from "dayjs";
 import { ISocial } from "@/interfaces/social";
 import { IVideo } from "@/interfaces/video";
 
-const mockVideos = [
-    {
-        id: "1",
-        description: "Como fazer um bolo de chocolate",
-        platforms: [
-            {
-                name: "YouTube",
-                url: "https://youtube.com/video1",
-                publishDate: "2024-03-15",
-                promoted: 2,
-                viral: true,
-            },
-            {
-                name: "TikTok",
-                url: "https://tiktok.com/video1",
-                publishDate: "2024-03-16",
-                promoted: 1,
-                viral: false,
-            },
-        ],
-    },
-    {
-        id: "2",
-        description: "Dicas de produtividade",
-        platforms: [
-            {
-                name: "Instagram",
-                url: "https://instagram.com/video2",
-                publishDate: "2024-03-14",
-                promoted: 0,
-                viral: false,
-            },
-        ],
-    },
-];
-
 export default function VideoList() {
     const [videos, setVideos] = useState<IVideo[]>([]);
     const [socials, setSocials] = useState<ISocial[]>([]);
     const [editing, setEditing] = useState<any>(null);
     const [form] = Form.useForm();
     const [filterSocial, setFilterSocial] = useState<string | null>(null);
-    // const [search, setSearch] = useState("");
-
-
-    // const columns = [
-    //     {
-    //         title: 'Descrição',
-    //         dataIndex: 'description',
-    //         render: (_: any, record: any, index: number) => {
-    //             const { platforms, platformIndex } = record;
-    //             if (platformIndex === 0) {
-    //                 return {
-    //                     children: record.description,
-    //                     props: { rowSpan: platforms.length },
-    //                 };
-    //             }
-    //             return { props: { rowSpan: 0 } };
-    //         },
-    //     },
-    //     {
-    //         title: 'Plataforma',
-    //         dataIndex: 'platform',
-    //         render: (text: any) => text.name,
-    //     },
-    //     {
-    //         title: 'Link',
-    //         dataIndex: 'platform',
-    //         render: (platform: any) => (
-    //             <a href={platform.url} target="_blank" rel="noopener noreferrer">
-    //                 Ver vídeo
-    //             </a>
-    //         ),
-    //     },
-    //     {
-    //         title: 'Data de Publicação',
-    //         dataIndex: 'platform',
-    //         render: (platform: any) =>
-    //             new Date(platform.publishDate).toLocaleDateString('pt-BR'),
-    //     },
-    //     {
-    //         title: 'Promoções',
-    //         dataIndex: 'platform',
-    //         render: (platform: any) => platform.promoted || '—',
-    //     },
-    //     {
-    //         title: 'Viral',
-    //         dataIndex: 'platform',
-    //         render: (platform: any) =>
-    //             platform.viral ? (
-    //                 <Tag color="green">Sim</Tag>
-    //             ) : (
-    //                 <Tag color="gray">Não</Tag>
-    //             ),
-    //     },
-    //     {
-    //         title: 'Ações',
-    //         dataIndex: 'actions',
-    //         render: (_: any, record: any) => {
-    //             const { platforms, platformIndex } = record;
-    //             if (platformIndex === 0) {
-    //                 return {
-    //                     children: (
-    //                         <div style={{ display: 'flex', gap: 8 }}>
-    //                             <Button
-    //                                 type="text"
-    //                                 icon={<Pencil />}
-    //                                 onClick={() => handleEdit(record.videoId)}
-    //                             />
-    //                             <Button
-    //                                 type="text"
-    //                                 icon={<Trash />}
-    //                                 onClick={() => handleDelete(record.videoId)}
-    //                             />
-    //                         </div>
-    //                     ),
-    //                     props: { rowSpan: platforms.length },
-    //                 };
-    //             }
-    //             return { props: { rowSpan: 0 } };
-    //         },
-    //     },
-    // ];
 
     const handleDelete = async (id: string) => {
         try {
@@ -194,8 +77,6 @@ export default function VideoList() {
     const filteredVideos = filterSocial
         ? videos.filter((video: any) => video.posts.some((p: any) => p.social_id === filterSocial))
         : videos;
-
-    console.log(filteredVideos);
 
     return (
         <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
