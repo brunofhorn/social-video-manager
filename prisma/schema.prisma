@@ -1,9 +1,44 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  output   = "../build/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Video {
+  id          String   @id @default(uuid())
+  title       String?
+  description String?
+  created_at  DateTime @default(now())
+
+  posts Post[]
+
+  @@map("videos")
+}
+
+model Social {
+  id   String  @id @default(uuid())
+  name String  @unique
+  url  String?
+
+  posts Post[]
+
+  @@map("socials")
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  video_id  String
+  social_id String
+  link      String
+  post_date DateTime
+
+  video  Video  @relation(fields: [video_id], references: [id])
+  social Social @relation(fields: [social_id], references: [id])
+
+  @@unique([video_id, social_id])
+  @@map("posts")
 }
