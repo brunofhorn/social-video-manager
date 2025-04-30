@@ -9,6 +9,8 @@ import {
   GearSix,
   X,
   List,
+  MonitorArrowUp,
+  FediverseLogo,
 } from '@phosphor-icons/react';
 import { useRouter } from 'next/navigation';
 
@@ -18,9 +20,19 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
 
   const menuItems = [
     {
-      key: '/dashboard',
+      key: '/dashboard/videos',
       icon: <Video size={20} />,
       label: 'Vídeos Postados',
+    },
+    {
+      key: '/dashboard/add-video',
+      icon: <MonitorArrowUp size={20} />,
+      label: 'Cadastrar Vídeo',
+    },
+    {
+      key: '/dashboard/socials',
+      icon: <FediverseLogo size={20} />,
+      label: 'Redes Sociais',
     },
     {
       key: '/dashboard/calendario',

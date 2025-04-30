@@ -17,7 +17,7 @@ export default function LoginPage() {
       if (values.email === 'bruno@email.com' && values.senha === '123456') {
         document.cookie = `auth=true; path=/; max-age=86400`
         message.success('Login bem-sucedido!')
-        router.push('/dashboard/video-list')
+        router.push('/dashboard/videos')
       } else {
         message.error('Credenciais inválidas')
       }
