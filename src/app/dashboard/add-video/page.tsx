@@ -1,53 +1,55 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
-import { Button, Form, Input, Select, DatePicker, Typography, message, Card, Row, Col, Space, Popconfirm } from 'antd'
-import { useRouter } from 'next/navigation'
-import dayjs, { Dayjs } from 'dayjs'
-import 'dayjs/locale/pt-br'
+import { useEffect, useState } from 'react';
+import { Button, Form, Input, Select, DatePicker, Typography, message, Card, Row, Col, Space, Popconfirm } from 'antd';
+import { useRouter } from 'next/navigation';
+import dayjs, { Dayjs } from 'dayjs';
+import 'dayjs/locale/pt-br';
+
+type PostFormItem = {
+  social_id: string;
+  link: string;
+  post_date: Dayjs;
+};
 
 export default function CadastroVideoPage() {
-  type PostFormItem = {
-    social_id: string
-    link: string
-    post_date: Dayjs
-  }
-
-  const [form] = Form.useForm()
-  const [socials, setSocials] = useState([])
+  const [loadingRegister, setLoadingRegister] = useState(false);
+  const [form] = Form.useForm();
+  const [socials, setSocials] = useState([]);
   const [posts, setPosts] = useState<PostFormItem[]>([
     { social_id: '', link: '', post_date: dayjs() },
-  ])
-  const router = useRouter()
+  ]);
 
   useEffect(() => {
     fetch('/api/socials')
       .then(res => res.json())
-      .then(data => setSocials(data))
-  }, [])
+      .then(data => setSocials(data));
+  }, []);
 
   const handleAddPost = () => {
-    setPosts([...posts, { social_id: '', link: '', post_date: dayjs() }])
-  }
+    setPosts([...posts, { social_id: '', link: '', post_date: dayjs() }]);
+  };
 
   const handleRemovePost = (index: number) => {
-    const updated = posts.filter((_, i) => i !== index)
-    setPosts(updated)
-  }
+    const updated = posts.filter((_, i) => i !== index);
+    setPosts(updated);
+  };
 
   const handleChangePost = <K extends keyof PostFormItem>(
     index: number,
     field: K,
     value: PostFormItem[K]
   ) => {
-    const updated = [...posts]
-    updated[index] = { ...updated[index], [field]: value }
-    setPosts(updated)
-  }
+    const updated = [...posts];
+    updated[index] = { ...updated[index], [field]: value };
+    setPosts(updated);
+  };
 
   const onFinish = async (values: any) => {
+    setLoadingRegister(true);
+
     try {
-      await fetch('/api/videos', {
+      const res = await fetch('/api/videos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -59,15 +61,18 @@ export default function CadastroVideoPage() {
             post_date: p.post_date.toISOString(),
           })),
         }),
-      })
+      });
 
-      message.success('Vídeo cadastrado com sucesso!')
-      router.push('/dashboard')
+      if (!res.ok) throw new Error();
+      message.success('Vídeo cadastrado com sucesso!');
+      form.resetFields();
     } catch (err) {
-      console.error(err)
-      message.error('Erro ao cadastrar vídeo.')
+      console.error(err);
+      message.error('Erro ao cadastrar vídeo.');
+    } finally {
+      setLoadingRegister(false);
     }
-  }
+  };
 
   return (
     <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
@@ -77,7 +82,7 @@ export default function CadastroVideoPage() {
         <Form layout="vertical" form={form} onFinish={onFinish}>
           <Row gutter={16}>
             <Col xs={24} md={12}>
-              <Form.Item label="Título" name="title" rules={[{ required: true, message: 'Informe o título' }]}> 
+              <Form.Item label="Título" name="title" rules={[{ required: true, message: 'Informe o título' }]}>
                 <Input />
               </Form.Item>
             </Col>
@@ -148,12 +153,17 @@ export default function CadastroVideoPage() {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="w-full">
-              Salvar Vídeo
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loadingRegister}
+              className='w-full'
+            >
+              {loadingRegister ? 'Cadastrando...' : 'Cadastrar Vídeo'}
             </Button>
           </Form.Item>
         </Form>
       </Card>
     </div>
-  )
+  );
 }

@@ -25,9 +25,25 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
         const { title, description, posts } = body;
 
+        console.log("BODY: ", body);
+
         if (!title || !posts || !Array.isArray(posts)) {
             return NextResponse.json({ error: 'Título e postagens são obrigatórios.' }, { status: 400 });
         }
+
+        console.log("QUERY: ", JSON.stringify({
+            title,
+            description,
+            posts: {
+                create: posts.map((post: any) => ({
+                    social: {
+                        connect: { id: post.social_id },
+                    },
+                    link: post.link,
+                    post_date: new Date(post.post_date),
+                })),
+            },
+        }));
 
         const novoVideo = await prisma.video.create({
             data: {

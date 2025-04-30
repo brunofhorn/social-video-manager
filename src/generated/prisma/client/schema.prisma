@@ -9,10 +9,12 @@ datasource db {
 }
 
 model Video {
-  id          String   @id @default(uuid())
+  id          Int      @id @default(autoincrement())
   title       String?
   description String?
   created_at  DateTime @default(now())
+  reposted    Boolean  @default(false)
+  boosted     Boolean  @default(false)
 
   posts Post[]
 
@@ -20,7 +22,7 @@ model Video {
 }
 
 model Social {
-  id    String  @id @default(uuid())
+  id    Int     @id @default(autoincrement())
   name  String  @unique
   url   String?
   icon  String?
@@ -30,9 +32,9 @@ model Social {
 }
 
 model Post {
-  id        String   @id @default(uuid())
-  video_id  String
-  social_id String
+  id        Int      @id @default(autoincrement())
+  video_id  Int
+  social_id Int
   link      String
   post_date DateTime
 
@@ -41,4 +43,11 @@ model Post {
 
   @@unique([video_id, social_id])
   @@map("posts")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String
+  password String
 }

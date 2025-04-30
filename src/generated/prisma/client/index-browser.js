@@ -124,7 +124,9 @@ exports.Prisma.VideoScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  reposted: 'reposted',
+  boosted: 'boosted'
 };
 
 exports.Prisma.SocialScalarFieldEnum = {
@@ -140,6 +142,13 @@ exports.Prisma.PostScalarFieldEnum = {
   social_id: 'social_id',
   link: 'link',
   post_date: 'post_date'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password'
 };
 
 exports.Prisma.SortOrder = {
@@ -161,7 +170,8 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Video: 'Video',
   Social: 'Social',
-  Post: 'Post'
+  Post: 'Post',
+  User: 'User'
 };
 
 /**
