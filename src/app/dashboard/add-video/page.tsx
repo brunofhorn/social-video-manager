@@ -1,14 +1,23 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Button, Form, Input, Select, DatePicker, Space, message } from 'antd'
+import { Button, Form, Input, Select, DatePicker, Typography, message, Card, Row, Col, Space, Popconfirm } from 'antd'
 import { useRouter } from 'next/navigation'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
+import 'dayjs/locale/pt-br'
 
 export default function CadastroVideoPage() {
+  type PostFormItem = {
+    social_id: string
+    link: string
+    post_date: Dayjs
+  }
+
   const [form] = Form.useForm()
   const [socials, setSocials] = useState([])
-  const [posts, setPosts] = useState([{ social_id: '', link: '', post_date: dayjs() }])
+  const [posts, setPosts] = useState<PostFormItem[]>([
+    { social_id: '', link: '', post_date: dayjs() },
+  ])
   const router = useRouter()
 
   useEffect(() => {
@@ -21,16 +30,20 @@ export default function CadastroVideoPage() {
     setPosts([...posts, { social_id: '', link: '', post_date: dayjs() }])
   }
 
-  const handleChangePost = (
-    index: number,
-    field: 'social_id' | 'link' | 'post_date',
-    value: any
-  ) => {
-    const updated = [...posts]
-    updated[index][field] = value
+  const handleRemovePost = (index: number) => {
+    const updated = posts.filter((_, i) => i !== index)
     setPosts(updated)
   }
-  
+
+  const handleChangePost = <K extends keyof PostFormItem>(
+    index: number,
+    field: K,
+    value: PostFormItem[K]
+  ) => {
+    const updated = [...posts]
+    updated[index] = { ...updated[index], [field]: value }
+    setPosts(updated)
+  }
 
   const onFinish = async (values: any) => {
     try {
@@ -57,47 +70,90 @@ export default function CadastroVideoPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-8 rounded shadow">
-      <h1 className="text-2xl font-bold mb-6">Novo Vídeo</h1>
-      <Form layout="vertical" form={form} onFinish={onFinish}>
-        <Form.Item label="Título" name="title" rules={[{ required: true, message: 'Informe o título' }]}> 
-          <Input />
-        </Form.Item>
-        <Form.Item label="Descrição" name="description">
-          <Input.TextArea rows={3} />
-        </Form.Item>
+    <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
+      <Typography.Title level={2} className="mb-6">Cadastrar Vídeo</Typography.Title>
 
-        {posts.map((post, index) => (
-          <Space direction="vertical" className="w-full" key={index}>
-            <Select
-              placeholder="Selecione a rede social"
-              value={post.social_id}
-              onChange={(value) => handleChangePost(index, 'social_id', value)}
-              options={socials.map((s: any) => ({ label: s.name, value: s.id }))}
-            />
-            <Input
-              placeholder="Link da postagem"
-              value={post.link}
-              onChange={(e) => handleChangePost(index, 'link', e.target.value)}
-            />
-            <DatePicker
-              className="w-full"
-              value={post.post_date}
-              onChange={(date) => handleChangePost(index, 'post_date', date)}
-            />
-          </Space>
-        ))}
+      <Card>
+        <Form layout="vertical" form={form} onFinish={onFinish}>
+          <Row gutter={16}>
+            <Col xs={24} md={12}>
+              <Form.Item label="Título" name="title" rules={[{ required: true, message: 'Informe o título' }]}> 
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item label="Descrição" name="description">
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
 
-        <Button type="dashed" onClick={handleAddPost} className="w-full my-4">
-          Adicionar nova postagem
-        </Button>
+          <Typography.Title level={4}>Postagens</Typography.Title>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="w-full">
-            Salvar Vídeo
-          </Button>
-        </Form.Item>
-      </Form>
+          {posts.map((post, index) => (
+            <Card
+              key={index}
+              className="!mb-4"
+              type="inner"
+              title={`Postagem #${index + 1}`}
+              extra={posts.length > 1 && (
+                <Popconfirm
+                  title="Remover esta postagem?"
+                  onConfirm={() => handleRemovePost(index)}
+                  okText="Sim"
+                  cancelText="Cancelar"
+                >
+                  <Button type="link" danger size="small">Remover</Button>
+                </Popconfirm>
+              )}
+            >
+              <Row gutter={16}>
+                <Col xs={24} md={8}>
+                  <Form.Item label="Rede Social">
+                    <Select
+                      placeholder="Selecione a rede social"
+                      value={post.social_id}
+                      onChange={(value) => handleChangePost(index, 'social_id', value)}
+                      options={socials.map((s: any) => ({ label: s.name, value: s.id }))}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={8}>
+                  <Form.Item label="Link da Postagem">
+                    <Input
+                      placeholder="URL da postagem"
+                      value={post.link}
+                      onChange={(e) => handleChangePost(index, 'link', e.target.value)}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} md={8}>
+                  <Form.Item label="Data da Postagem">
+                    <DatePicker
+                      className="w-full"
+                      format="DD/MM/YYYY"
+                      value={post.post_date}
+                      onChange={(date) => handleChangePost(index, 'post_date', date!)}
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Card>
+          ))}
+
+          <Form.Item>
+            <Button type="dashed" onClick={handleAddPost} block className="my-4">
+              Adicionar nova postagem
+            </Button>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="w-full">
+              Salvar Vídeo
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   )
 }

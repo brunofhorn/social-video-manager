@@ -2183,18 +2183,21 @@ export namespace Prisma {
     id: string | null
     name: string | null
     url: string | null
+    icon: string | null
   }
 
   export type SocialMaxAggregateOutputType = {
     id: string | null
     name: string | null
     url: string | null
+    icon: string | null
   }
 
   export type SocialCountAggregateOutputType = {
     id: number
     name: number
     url: number
+    icon: number
     _all: number
   }
 
@@ -2203,18 +2206,21 @@ export namespace Prisma {
     id?: true
     name?: true
     url?: true
+    icon?: true
   }
 
   export type SocialMaxAggregateInputType = {
     id?: true
     name?: true
     url?: true
+    icon?: true
   }
 
   export type SocialCountAggregateInputType = {
     id?: true
     name?: true
     url?: true
+    icon?: true
     _all?: true
   }
 
@@ -2294,6 +2300,7 @@ export namespace Prisma {
     id: string
     name: string
     url: string | null
+    icon: string | null
     _count: SocialCountAggregateOutputType | null
     _min: SocialMinAggregateOutputType | null
     _max: SocialMaxAggregateOutputType | null
@@ -2317,6 +2324,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     url?: boolean
+    icon?: boolean
     posts?: boolean | Social$postsArgs<ExtArgs>
     _count?: boolean | SocialCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["social"]>
@@ -2325,21 +2333,24 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     url?: boolean
+    icon?: boolean
   }, ExtArgs["result"]["social"]>
 
   export type SocialSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     url?: boolean
+    icon?: boolean
   }, ExtArgs["result"]["social"]>
 
   export type SocialSelectScalar = {
     id?: boolean
     name?: boolean
     url?: boolean
+    icon?: boolean
   }
 
-  export type SocialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "url", ExtArgs["result"]["social"]>
+  export type SocialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "url" | "icon", ExtArgs["result"]["social"]>
   export type SocialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | Social$postsArgs<ExtArgs>
     _count?: boolean | SocialCountOutputTypeDefaultArgs<ExtArgs>
@@ -2356,6 +2367,7 @@ export namespace Prisma {
       id: string
       name: string
       url: string | null
+      icon: string | null
     }, ExtArgs["result"]["social"]>
     composites: {}
   }
@@ -2783,6 +2795,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Social", 'String'>
     readonly name: FieldRef<"Social", 'String'>
     readonly url: FieldRef<"Social", 'String'>
+    readonly icon: FieldRef<"Social", 'String'>
   }
     
 
@@ -4306,7 +4319,8 @@ export namespace Prisma {
   export const SocialScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    url: 'url'
+    url: 'url',
+    icon: 'icon'
   };
 
   export type SocialScalarFieldEnum = (typeof SocialScalarFieldEnum)[keyof typeof SocialScalarFieldEnum]
@@ -4454,6 +4468,7 @@ export namespace Prisma {
     id?: StringFilter<"Social"> | string
     name?: StringFilter<"Social"> | string
     url?: StringNullableFilter<"Social"> | string | null
+    icon?: StringNullableFilter<"Social"> | string | null
     posts?: PostListRelationFilter
   }
 
@@ -4461,6 +4476,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrderInput | SortOrder
+    icon?: SortOrderInput | SortOrder
     posts?: PostOrderByRelationAggregateInput
   }
 
@@ -4471,6 +4487,7 @@ export namespace Prisma {
     OR?: SocialWhereInput[]
     NOT?: SocialWhereInput | SocialWhereInput[]
     url?: StringNullableFilter<"Social"> | string | null
+    icon?: StringNullableFilter<"Social"> | string | null
     posts?: PostListRelationFilter
   }, "id" | "name">
 
@@ -4478,6 +4495,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrderInput | SortOrder
+    icon?: SortOrderInput | SortOrder
     _count?: SocialCountOrderByAggregateInput
     _max?: SocialMaxOrderByAggregateInput
     _min?: SocialMinOrderByAggregateInput
@@ -4490,6 +4508,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Social"> | string
     name?: StringWithAggregatesFilter<"Social"> | string
     url?: StringNullableWithAggregatesFilter<"Social"> | string | null
+    icon?: StringNullableWithAggregatesFilter<"Social"> | string | null
   }
 
   export type PostWhereInput = {
@@ -4608,6 +4627,7 @@ export namespace Prisma {
     id?: string
     name: string
     url?: string | null
+    icon?: string | null
     posts?: PostCreateNestedManyWithoutSocialInput
   }
 
@@ -4615,6 +4635,7 @@ export namespace Prisma {
     id?: string
     name: string
     url?: string | null
+    icon?: string | null
     posts?: PostUncheckedCreateNestedManyWithoutSocialInput
   }
 
@@ -4622,6 +4643,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUpdateManyWithoutSocialNestedInput
   }
 
@@ -4629,6 +4651,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUncheckedUpdateManyWithoutSocialNestedInput
   }
 
@@ -4636,18 +4659,21 @@ export namespace Prisma {
     id?: string
     name: string
     url?: string | null
+    icon?: string | null
   }
 
   export type SocialUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SocialUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostCreateInput = {
@@ -4835,18 +4861,21 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrder
+    icon?: SortOrder
   }
 
   export type SocialMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrder
+    icon?: SortOrder
   }
 
   export type SocialMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     url?: SortOrder
+    icon?: SortOrder
   }
 
   export type VideoScalarRelationFilter = {
@@ -5235,12 +5264,14 @@ export namespace Prisma {
     id?: string
     name: string
     url?: string | null
+    icon?: string | null
   }
 
   export type SocialUncheckedCreateWithoutPostsInput = {
     id?: string
     name: string
     url?: string | null
+    icon?: string | null
   }
 
   export type SocialCreateOrConnectWithoutPostsInput = {
@@ -5288,12 +5319,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SocialUncheckedUpdateWithoutPostsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PostCreateManyVideoInput = {

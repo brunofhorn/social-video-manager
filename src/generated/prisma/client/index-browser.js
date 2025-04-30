@@ -130,7 +130,8 @@ exports.Prisma.VideoScalarFieldEnum = {
 exports.Prisma.SocialScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  url: 'url'
+  url: 'url',
+  icon: 'icon'
 };
 
 exports.Prisma.PostScalarFieldEnum = {

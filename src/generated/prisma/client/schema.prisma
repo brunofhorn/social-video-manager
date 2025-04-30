@@ -20,10 +20,10 @@ model Video {
 }
 
 model Social {
-  id   String  @id @default(uuid())
-  name String  @unique
-  url  String?
-
+  id    String  @id @default(uuid())
+  name  String  @unique
+  url   String?
+  icon  String?
   posts Post[]
 
   @@map("socials")
