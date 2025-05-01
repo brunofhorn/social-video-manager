@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button, Form, Input, Select, DatePicker, Typography, message, Card, Row, Col, Space, Popconfirm } from 'antd';
-import { useRouter } from 'next/navigation';
+import { Button, Form, Input, Select, DatePicker, Typography, message, Card, Row, Col, Popconfirm, notification } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/pt-br';
 
@@ -19,6 +18,7 @@ export default function CadastroVideoPage() {
   const [posts, setPosts] = useState<PostFormItem[]>([
     { social_id: '', link: '', post_date: dayjs() },
   ]);
+  const [api, context] = notification.useNotification();
 
   useEffect(() => {
     fetch('/api/socials')
@@ -63,12 +63,21 @@ export default function CadastroVideoPage() {
         }),
       });
 
-      if (!res.ok) throw new Error();
-      message.success('Vídeo cadastrado com sucesso!');
+      if (!res.ok) {
+        throw new Error("Ocorreu um erro ao tentar cadastrar o vídeo.");
+      }
+
       form.resetFields();
+      api.open({
+        message: "Vídeo cadastrado com sucesso!",
+        type: "success"
+      });
     } catch (err) {
       console.error(err);
-      message.error('Erro ao cadastrar vídeo.');
+      api.open({
+        message: "Erro ao cadastrar o vídeo.",
+        type: "error"
+      });
     } finally {
       setLoadingRegister(false);
     }
@@ -76,6 +85,7 @@ export default function CadastroVideoPage() {
 
   return (
     <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
+      {context}
       <Typography.Title level={2} className="mb-6">Cadastrar Vídeo</Typography.Title>
 
       <Card>

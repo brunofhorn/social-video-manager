@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Layout from '@/components/Layout';
+import { App as AntdApp } from 'antd';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode; }) {
     const cookieStore = await cookies();
@@ -9,6 +10,6 @@ export default async function DashboardLayout({ children }: { children: React.Re
     if (!auth || auth.value !== 'true') {
         redirect('/login');
     }
-
-    return <Layout>{children}</Layout>;
+        
+    return <AntdApp><Layout>{children}</Layout></AntdApp>;
 }
