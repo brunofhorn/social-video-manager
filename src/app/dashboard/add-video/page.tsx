@@ -68,6 +68,7 @@ export default function CadastroVideoPage() {
       }
 
       form.resetFields();
+      setPosts([])
       api.open({
         message: "Vídeo cadastrado com sucesso!",
         type: "success"

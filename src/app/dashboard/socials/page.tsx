@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Form, Input, Typography, message, Modal, Select, Space } from 'antd';
+import { Form, Input, Typography, message, Modal, Select, Space, notification } from 'antd';
 import FormSocials from '@/components/socials/Form';
 import { socialIcons } from '@/data/social-icons';
 import { ListSocials } from '@/components/socials/List';
@@ -14,6 +14,7 @@ export default function ConfiguracoesPage() {
   const [loadingRegister, setLoadingRegister] = useState(false);
   const [loadingSocials, setLoadingSocials] = useState(true);
   const [editing, setEditing] = useState<any>(null);
+  const [app, context] = notification.useNotification();
 
   const fetchSocials = async () => {
     try {
@@ -41,13 +42,28 @@ export default function ConfiguracoesPage() {
         body: JSON.stringify(values),
       });
 
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        app.open({
+          message: "Ocorreu um erro ao tentar listar as redes sociais.",
+          type: 'error'
+        });
 
-      message.success('Rede social cadastrada com sucesso');
+        throw new Error();
+      }
+
+      app.open({
+        message: "A rede social foi cadastrada com sucesso!",
+        type: 'success'
+      });
+
       form.resetFields();
       fetchSocials();
     } catch (err) {
-      message.error('Erro ao cadastrar rede social');
+      console.error(err);
+      app.open({
+        message: "Erro ao cadastrar rede social.",
+        type: 'error'
+      });
     } finally {
       setLoadingRegister(false);
     }
@@ -57,11 +73,28 @@ export default function ConfiguracoesPage() {
     try {
       const res = await fetch(`/api/socials?id=${id}`, { method: 'DELETE' });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      message.success('Rede social removida com sucesso');
+
+      if (!res.ok) {
+        app.open({
+          message: "Ocorreu um erro ao tentar deletar a rede social.",
+          type: 'error'
+        });
+
+        throw new Error(data.error);
+      }
+
+      app.open({
+        message: "A rede social foi removida com sucesso!",
+        type: 'success'
+      });
+
       fetchSocials();
     } catch (err: any) {
-      message.error(err.message || 'Erro ao remover');
+      console.error(err);
+      app.open({
+        message: "Erro ao remover rede social.",
+        type: 'error'
+      });
     }
   };
 
@@ -80,17 +113,35 @@ export default function ConfiguracoesPage() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      message.success('Rede social atualizada');
+
+      if (!res.ok) {
+        app.open({
+          message: "Ocorreu um erro ao tentar atualizar a rede social.",
+          type: 'error'
+        });
+
+        throw new Error(data.error);
+      }
+
+      app.open({
+        message: "A rede social foi atualizada com sucesso!",
+        type: 'success'
+      });
+
       setEditing(null);
       fetchSocials();
     } catch (err: any) {
-      message.error(err.message || 'Erro ao atualizar');
+      console.error(err);
+      app.open({
+        message: "Erro ao atualizar rede social.",
+        type: 'error'
+      });
     }
   };
 
   return (
     <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
+      {context}
       <Typography.Title level={2} className="mb-6">Redes Sociais</Typography.Title>
       <FormSocials form={form} onFinish={onFinish} loadingRegister={loadingRegister} />
       <ListSocials loadingSocials={loadingSocials} socials={socials} handleEdit={handleEdit} handleDelete={handleDelete} />

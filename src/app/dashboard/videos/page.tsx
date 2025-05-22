@@ -7,20 +7,25 @@ import { ISocial } from "@/interfaces/social";
 import { IVideo } from "@/interfaces/video";
 
 export default function VideoList() {
+    const [form] = Form.useForm();
     const [videos, setVideos] = useState<IVideo[]>([]);
     const [socials, setSocials] = useState<ISocial[]>([]);
+    const [loadingVideos, setLoadingVideos] = useState(true)
     const [editing, setEditing] = useState<any>(null);
-    const [form] = Form.useForm();
     const [filterSocial, setFilterSocial] = useState<string | null>(null);
 
     const handleDelete = async (id: string) => {
+        setLoadingVideos(true)
+
         try {
             const res = await fetch(`/api/videos?id=${id}`, { method: 'DELETE' });
             if (!res.ok) throw new Error();
-            console.log('Vídeo removido com sucesso');
+            
             loadData();
+            setLoadingVideos(false)
         } catch {
             console.error('Erro ao remover vídeo');
+        }finally{
         }
     };
 
@@ -35,6 +40,8 @@ export default function VideoList() {
     };
 
     const handleUpdate = async () => {
+        setLoadingVideos(true)
+
         try {
             const values = await form.validateFields();
             const res = await fetch('/api/videos', {
@@ -48,6 +55,8 @@ export default function VideoList() {
             loadData();
         } catch {
             console.error('Erro ao atualizar vídeo');
+        }finally{
+            setLoadingVideos(false)
         }
     };
 
@@ -65,6 +74,7 @@ export default function VideoList() {
 
             setVideos(videosData);
             setSocials(socialsData);
+            setLoadingVideos(false)
         } catch (err) {
             console.error('Erro ao carregar dados');
         }
@@ -99,6 +109,7 @@ export default function VideoList() {
                 <Table
                     rowKey="id"
                     dataSource={filteredVideos}
+                    loading={loadingVideos}
                     columns={[
                         {
                             title: 'Título',

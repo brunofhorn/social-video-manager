@@ -114,9 +114,6 @@ Prisma.NullTypes = {
  */
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -127,6 +124,18 @@ exports.Prisma.VideoScalarFieldEnum = {
   created_at: 'created_at',
   reposted: 'reposted',
   boosted: 'boosted'
+};
+
+exports.Prisma.VideoMetricTaskScalarFieldEnum = {
+  id: 'id',
+  video_id: 'video_id',
+  social_id: 'social_id',
+  postUrl: 'postUrl',
+  status: 'status',
+  views: 'views',
+  error: 'error',
+  updated_at: 'updated_at',
+  created_at: 'created_at'
 };
 
 exports.Prisma.SocialScalarFieldEnum = {
@@ -156,11 +165,6 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -169,6 +173,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Video: 'Video',
+  VideoMetricTask: 'VideoMetricTask',
   Social: 'Social',
   Post: 'Post',
   User: 'User'

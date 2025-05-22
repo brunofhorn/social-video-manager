@@ -4,8 +4,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./social-video-manager-db.db"
 }
 
 model Video {
@@ -16,17 +16,36 @@ model Video {
   reposted    Boolean  @default(false)
   boosted     Boolean  @default(false)
 
-  posts Post[]
+  posts           Post[]
+  VideoMetricTask VideoMetricTask[]
 
   @@map("videos")
 }
 
+model VideoMetricTask {
+  id         Int      @id @default(autoincrement())
+  video_id   Int
+  social_id  Int
+  postUrl    String
+  status     String   @default("PENDENTE")
+  views      Int?
+  error      String?
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+
+  video  Video  @relation(fields: [video_id], references: [id])
+  social Social @relation(fields: [social_id], references: [id])
+
+  @@map("video_metric_tasks")
+}
+
 model Social {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique
-  url   String?
-  icon  String?
-  posts Post[]
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  url             String?
+  icon            String?
+  posts           Post[]
+  videoMetricTask VideoMetricTask[]
 
   @@map("socials")
 }
@@ -48,6 +67,8 @@ model Post {
 model User {
   id       Int    @id @default(autoincrement())
   name     String
-  email    String
+  email    String @unique
   password String
+
+  @@map("users")
 }

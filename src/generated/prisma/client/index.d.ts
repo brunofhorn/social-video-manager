@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Video = $Result.DefaultSelection<Prisma.$VideoPayload>
 /**
+ * Model VideoMetricTask
+ * 
+ */
+export type VideoMetricTask = $Result.DefaultSelection<Prisma.$VideoMetricTaskPayload>
+/**
  * Model Social
  * 
  */
@@ -168,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get video(): Prisma.VideoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.videoMetricTask`: Exposes CRUD operations for the **VideoMetricTask** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VideoMetricTasks
+    * const videoMetricTasks = await prisma.videoMetricTask.findMany()
+    * ```
+    */
+  get videoMetricTask(): Prisma.VideoMetricTaskDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.social`: Exposes CRUD operations for the **Social** model.
@@ -639,6 +654,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Video: 'Video',
+    VideoMetricTask: 'VideoMetricTask',
     Social: 'Social',
     Post: 'Post',
     User: 'User'
@@ -660,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "video" | "social" | "post" | "user"
+      modelProps: "video" | "videoMetricTask" | "social" | "post" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -735,6 +751,80 @@ export namespace Prisma {
           count: {
             args: Prisma.VideoCountArgs<ExtArgs>
             result: $Utils.Optional<VideoCountAggregateOutputType> | number
+          }
+        }
+      }
+      VideoMetricTask: {
+        payload: Prisma.$VideoMetricTaskPayload<ExtArgs>
+        fields: Prisma.VideoMetricTaskFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VideoMetricTaskFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VideoMetricTaskFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload>
+          }
+          findFirst: {
+            args: Prisma.VideoMetricTaskFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VideoMetricTaskFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload>
+          }
+          findMany: {
+            args: Prisma.VideoMetricTaskFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload>[]
+          }
+          create: {
+            args: Prisma.VideoMetricTaskCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload>
+          }
+          createMany: {
+            args: Prisma.VideoMetricTaskCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VideoMetricTaskCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload>[]
+          }
+          delete: {
+            args: Prisma.VideoMetricTaskDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload>
+          }
+          update: {
+            args: Prisma.VideoMetricTaskUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload>
+          }
+          deleteMany: {
+            args: Prisma.VideoMetricTaskDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VideoMetricTaskUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VideoMetricTaskUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload>[]
+          }
+          upsert: {
+            args: Prisma.VideoMetricTaskUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VideoMetricTaskPayload>
+          }
+          aggregate: {
+            args: Prisma.VideoMetricTaskAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVideoMetricTask>
+          }
+          groupBy: {
+            args: Prisma.VideoMetricTaskGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VideoMetricTaskGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VideoMetricTaskCountArgs<ExtArgs>
+            result: $Utils.Optional<VideoMetricTaskCountAggregateOutputType> | number
           }
         }
       }
@@ -1045,6 +1135,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     video?: VideoOmit
+    videoMetricTask?: VideoMetricTaskOmit
     social?: SocialOmit
     post?: PostOmit
     user?: UserOmit
@@ -1143,10 +1234,12 @@ export namespace Prisma {
 
   export type VideoCountOutputType = {
     posts: number
+    VideoMetricTask: number
   }
 
   export type VideoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | VideoCountOutputTypeCountPostsArgs
+    VideoMetricTask?: boolean | VideoCountOutputTypeCountVideoMetricTaskArgs
   }
 
   // Custom InputTypes
@@ -1167,6 +1260,13 @@ export namespace Prisma {
     where?: PostWhereInput
   }
 
+  /**
+   * VideoCountOutputType without action
+   */
+  export type VideoCountOutputTypeCountVideoMetricTaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VideoMetricTaskWhereInput
+  }
+
 
   /**
    * Count Type SocialCountOutputType
@@ -1174,10 +1274,12 @@ export namespace Prisma {
 
   export type SocialCountOutputType = {
     posts: number
+    videoMetricTask: number
   }
 
   export type SocialCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | SocialCountOutputTypeCountPostsArgs
+    videoMetricTask?: boolean | SocialCountOutputTypeCountVideoMetricTaskArgs
   }
 
   // Custom InputTypes
@@ -1196,6 +1298,13 @@ export namespace Prisma {
    */
   export type SocialCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PostWhereInput
+  }
+
+  /**
+   * SocialCountOutputType without action
+   */
+  export type SocialCountOutputTypeCountVideoMetricTaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VideoMetricTaskWhereInput
   }
 
 
@@ -1410,6 +1519,7 @@ export namespace Prisma {
     reposted?: boolean
     boosted?: boolean
     posts?: boolean | Video$postsArgs<ExtArgs>
+    VideoMetricTask?: boolean | Video$VideoMetricTaskArgs<ExtArgs>
     _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["video"]>
 
@@ -1443,6 +1553,7 @@ export namespace Prisma {
   export type VideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "created_at" | "reposted" | "boosted", ExtArgs["result"]["video"]>
   export type VideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | Video$postsArgs<ExtArgs>
+    VideoMetricTask?: boolean | Video$VideoMetricTaskArgs<ExtArgs>
     _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VideoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1452,6 +1563,7 @@ export namespace Prisma {
     name: "Video"
     objects: {
       posts: Prisma.$PostPayload<ExtArgs>[]
+      VideoMetricTask: Prisma.$VideoMetricTaskPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1855,6 +1967,7 @@ export namespace Prisma {
   export interface Prisma__VideoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     posts<T extends Video$postsArgs<ExtArgs> = {}>(args?: Subset<T, Video$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    VideoMetricTask<T extends Video$VideoMetricTaskArgs<ExtArgs> = {}>(args?: Subset<T, Video$VideoMetricTaskArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2119,7 +2232,6 @@ export namespace Prisma {
      * The data used to create many Videos.
      */
     data: VideoCreateManyInput | VideoCreateManyInput[]
-    skipDuplicates?: boolean
   }
 
   /**
@@ -2138,7 +2250,6 @@ export namespace Prisma {
      * The data used to create many Videos.
      */
     data: VideoCreateManyInput | VideoCreateManyInput[]
-    skipDuplicates?: boolean
   }
 
   /**
@@ -2302,6 +2413,30 @@ export namespace Prisma {
   }
 
   /**
+   * Video.VideoMetricTask
+   */
+  export type Video$VideoMetricTaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    where?: VideoMetricTaskWhereInput
+    orderBy?: VideoMetricTaskOrderByWithRelationInput | VideoMetricTaskOrderByWithRelationInput[]
+    cursor?: VideoMetricTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VideoMetricTaskScalarFieldEnum | VideoMetricTaskScalarFieldEnum[]
+  }
+
+  /**
    * Video without action
    */
   export type VideoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2317,6 +2452,1168 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: VideoInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VideoMetricTask
+   */
+
+  export type AggregateVideoMetricTask = {
+    _count: VideoMetricTaskCountAggregateOutputType | null
+    _avg: VideoMetricTaskAvgAggregateOutputType | null
+    _sum: VideoMetricTaskSumAggregateOutputType | null
+    _min: VideoMetricTaskMinAggregateOutputType | null
+    _max: VideoMetricTaskMaxAggregateOutputType | null
+  }
+
+  export type VideoMetricTaskAvgAggregateOutputType = {
+    id: number | null
+    video_id: number | null
+    social_id: number | null
+    views: number | null
+  }
+
+  export type VideoMetricTaskSumAggregateOutputType = {
+    id: number | null
+    video_id: number | null
+    social_id: number | null
+    views: number | null
+  }
+
+  export type VideoMetricTaskMinAggregateOutputType = {
+    id: number | null
+    video_id: number | null
+    social_id: number | null
+    postUrl: string | null
+    status: string | null
+    views: number | null
+    error: string | null
+    updated_at: Date | null
+    created_at: Date | null
+  }
+
+  export type VideoMetricTaskMaxAggregateOutputType = {
+    id: number | null
+    video_id: number | null
+    social_id: number | null
+    postUrl: string | null
+    status: string | null
+    views: number | null
+    error: string | null
+    updated_at: Date | null
+    created_at: Date | null
+  }
+
+  export type VideoMetricTaskCountAggregateOutputType = {
+    id: number
+    video_id: number
+    social_id: number
+    postUrl: number
+    status: number
+    views: number
+    error: number
+    updated_at: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type VideoMetricTaskAvgAggregateInputType = {
+    id?: true
+    video_id?: true
+    social_id?: true
+    views?: true
+  }
+
+  export type VideoMetricTaskSumAggregateInputType = {
+    id?: true
+    video_id?: true
+    social_id?: true
+    views?: true
+  }
+
+  export type VideoMetricTaskMinAggregateInputType = {
+    id?: true
+    video_id?: true
+    social_id?: true
+    postUrl?: true
+    status?: true
+    views?: true
+    error?: true
+    updated_at?: true
+    created_at?: true
+  }
+
+  export type VideoMetricTaskMaxAggregateInputType = {
+    id?: true
+    video_id?: true
+    social_id?: true
+    postUrl?: true
+    status?: true
+    views?: true
+    error?: true
+    updated_at?: true
+    created_at?: true
+  }
+
+  export type VideoMetricTaskCountAggregateInputType = {
+    id?: true
+    video_id?: true
+    social_id?: true
+    postUrl?: true
+    status?: true
+    views?: true
+    error?: true
+    updated_at?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type VideoMetricTaskAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VideoMetricTask to aggregate.
+     */
+    where?: VideoMetricTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoMetricTasks to fetch.
+     */
+    orderBy?: VideoMetricTaskOrderByWithRelationInput | VideoMetricTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VideoMetricTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoMetricTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoMetricTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VideoMetricTasks
+    **/
+    _count?: true | VideoMetricTaskCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VideoMetricTaskAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VideoMetricTaskSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VideoMetricTaskMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VideoMetricTaskMaxAggregateInputType
+  }
+
+  export type GetVideoMetricTaskAggregateType<T extends VideoMetricTaskAggregateArgs> = {
+        [P in keyof T & keyof AggregateVideoMetricTask]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVideoMetricTask[P]>
+      : GetScalarType<T[P], AggregateVideoMetricTask[P]>
+  }
+
+
+
+
+  export type VideoMetricTaskGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VideoMetricTaskWhereInput
+    orderBy?: VideoMetricTaskOrderByWithAggregationInput | VideoMetricTaskOrderByWithAggregationInput[]
+    by: VideoMetricTaskScalarFieldEnum[] | VideoMetricTaskScalarFieldEnum
+    having?: VideoMetricTaskScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VideoMetricTaskCountAggregateInputType | true
+    _avg?: VideoMetricTaskAvgAggregateInputType
+    _sum?: VideoMetricTaskSumAggregateInputType
+    _min?: VideoMetricTaskMinAggregateInputType
+    _max?: VideoMetricTaskMaxAggregateInputType
+  }
+
+  export type VideoMetricTaskGroupByOutputType = {
+    id: number
+    video_id: number
+    social_id: number
+    postUrl: string
+    status: string
+    views: number | null
+    error: string | null
+    updated_at: Date
+    created_at: Date
+    _count: VideoMetricTaskCountAggregateOutputType | null
+    _avg: VideoMetricTaskAvgAggregateOutputType | null
+    _sum: VideoMetricTaskSumAggregateOutputType | null
+    _min: VideoMetricTaskMinAggregateOutputType | null
+    _max: VideoMetricTaskMaxAggregateOutputType | null
+  }
+
+  type GetVideoMetricTaskGroupByPayload<T extends VideoMetricTaskGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VideoMetricTaskGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VideoMetricTaskGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VideoMetricTaskGroupByOutputType[P]>
+            : GetScalarType<T[P], VideoMetricTaskGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VideoMetricTaskSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    video_id?: boolean
+    social_id?: boolean
+    postUrl?: boolean
+    status?: boolean
+    views?: boolean
+    error?: boolean
+    updated_at?: boolean
+    created_at?: boolean
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+    social?: boolean | SocialDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["videoMetricTask"]>
+
+  export type VideoMetricTaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    video_id?: boolean
+    social_id?: boolean
+    postUrl?: boolean
+    status?: boolean
+    views?: boolean
+    error?: boolean
+    updated_at?: boolean
+    created_at?: boolean
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+    social?: boolean | SocialDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["videoMetricTask"]>
+
+  export type VideoMetricTaskSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    video_id?: boolean
+    social_id?: boolean
+    postUrl?: boolean
+    status?: boolean
+    views?: boolean
+    error?: boolean
+    updated_at?: boolean
+    created_at?: boolean
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+    social?: boolean | SocialDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["videoMetricTask"]>
+
+  export type VideoMetricTaskSelectScalar = {
+    id?: boolean
+    video_id?: boolean
+    social_id?: boolean
+    postUrl?: boolean
+    status?: boolean
+    views?: boolean
+    error?: boolean
+    updated_at?: boolean
+    created_at?: boolean
+  }
+
+  export type VideoMetricTaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "video_id" | "social_id" | "postUrl" | "status" | "views" | "error" | "updated_at" | "created_at", ExtArgs["result"]["videoMetricTask"]>
+  export type VideoMetricTaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+    social?: boolean | SocialDefaultArgs<ExtArgs>
+  }
+  export type VideoMetricTaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+    social?: boolean | SocialDefaultArgs<ExtArgs>
+  }
+  export type VideoMetricTaskIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+    social?: boolean | SocialDefaultArgs<ExtArgs>
+  }
+
+  export type $VideoMetricTaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VideoMetricTask"
+    objects: {
+      video: Prisma.$VideoPayload<ExtArgs>
+      social: Prisma.$SocialPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      video_id: number
+      social_id: number
+      postUrl: string
+      status: string
+      views: number | null
+      error: string | null
+      updated_at: Date
+      created_at: Date
+    }, ExtArgs["result"]["videoMetricTask"]>
+    composites: {}
+  }
+
+  type VideoMetricTaskGetPayload<S extends boolean | null | undefined | VideoMetricTaskDefaultArgs> = $Result.GetResult<Prisma.$VideoMetricTaskPayload, S>
+
+  type VideoMetricTaskCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VideoMetricTaskFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VideoMetricTaskCountAggregateInputType | true
+    }
+
+  export interface VideoMetricTaskDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VideoMetricTask'], meta: { name: 'VideoMetricTask' } }
+    /**
+     * Find zero or one VideoMetricTask that matches the filter.
+     * @param {VideoMetricTaskFindUniqueArgs} args - Arguments to find a VideoMetricTask
+     * @example
+     * // Get one VideoMetricTask
+     * const videoMetricTask = await prisma.videoMetricTask.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VideoMetricTaskFindUniqueArgs>(args: SelectSubset<T, VideoMetricTaskFindUniqueArgs<ExtArgs>>): Prisma__VideoMetricTaskClient<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VideoMetricTask that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VideoMetricTaskFindUniqueOrThrowArgs} args - Arguments to find a VideoMetricTask
+     * @example
+     * // Get one VideoMetricTask
+     * const videoMetricTask = await prisma.videoMetricTask.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VideoMetricTaskFindUniqueOrThrowArgs>(args: SelectSubset<T, VideoMetricTaskFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VideoMetricTaskClient<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VideoMetricTask that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoMetricTaskFindFirstArgs} args - Arguments to find a VideoMetricTask
+     * @example
+     * // Get one VideoMetricTask
+     * const videoMetricTask = await prisma.videoMetricTask.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VideoMetricTaskFindFirstArgs>(args?: SelectSubset<T, VideoMetricTaskFindFirstArgs<ExtArgs>>): Prisma__VideoMetricTaskClient<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VideoMetricTask that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoMetricTaskFindFirstOrThrowArgs} args - Arguments to find a VideoMetricTask
+     * @example
+     * // Get one VideoMetricTask
+     * const videoMetricTask = await prisma.videoMetricTask.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VideoMetricTaskFindFirstOrThrowArgs>(args?: SelectSubset<T, VideoMetricTaskFindFirstOrThrowArgs<ExtArgs>>): Prisma__VideoMetricTaskClient<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VideoMetricTasks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoMetricTaskFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VideoMetricTasks
+     * const videoMetricTasks = await prisma.videoMetricTask.findMany()
+     * 
+     * // Get first 10 VideoMetricTasks
+     * const videoMetricTasks = await prisma.videoMetricTask.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const videoMetricTaskWithIdOnly = await prisma.videoMetricTask.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VideoMetricTaskFindManyArgs>(args?: SelectSubset<T, VideoMetricTaskFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VideoMetricTask.
+     * @param {VideoMetricTaskCreateArgs} args - Arguments to create a VideoMetricTask.
+     * @example
+     * // Create one VideoMetricTask
+     * const VideoMetricTask = await prisma.videoMetricTask.create({
+     *   data: {
+     *     // ... data to create a VideoMetricTask
+     *   }
+     * })
+     * 
+     */
+    create<T extends VideoMetricTaskCreateArgs>(args: SelectSubset<T, VideoMetricTaskCreateArgs<ExtArgs>>): Prisma__VideoMetricTaskClient<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VideoMetricTasks.
+     * @param {VideoMetricTaskCreateManyArgs} args - Arguments to create many VideoMetricTasks.
+     * @example
+     * // Create many VideoMetricTasks
+     * const videoMetricTask = await prisma.videoMetricTask.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VideoMetricTaskCreateManyArgs>(args?: SelectSubset<T, VideoMetricTaskCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VideoMetricTasks and returns the data saved in the database.
+     * @param {VideoMetricTaskCreateManyAndReturnArgs} args - Arguments to create many VideoMetricTasks.
+     * @example
+     * // Create many VideoMetricTasks
+     * const videoMetricTask = await prisma.videoMetricTask.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VideoMetricTasks and only return the `id`
+     * const videoMetricTaskWithIdOnly = await prisma.videoMetricTask.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VideoMetricTaskCreateManyAndReturnArgs>(args?: SelectSubset<T, VideoMetricTaskCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VideoMetricTask.
+     * @param {VideoMetricTaskDeleteArgs} args - Arguments to delete one VideoMetricTask.
+     * @example
+     * // Delete one VideoMetricTask
+     * const VideoMetricTask = await prisma.videoMetricTask.delete({
+     *   where: {
+     *     // ... filter to delete one VideoMetricTask
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VideoMetricTaskDeleteArgs>(args: SelectSubset<T, VideoMetricTaskDeleteArgs<ExtArgs>>): Prisma__VideoMetricTaskClient<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VideoMetricTask.
+     * @param {VideoMetricTaskUpdateArgs} args - Arguments to update one VideoMetricTask.
+     * @example
+     * // Update one VideoMetricTask
+     * const videoMetricTask = await prisma.videoMetricTask.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VideoMetricTaskUpdateArgs>(args: SelectSubset<T, VideoMetricTaskUpdateArgs<ExtArgs>>): Prisma__VideoMetricTaskClient<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VideoMetricTasks.
+     * @param {VideoMetricTaskDeleteManyArgs} args - Arguments to filter VideoMetricTasks to delete.
+     * @example
+     * // Delete a few VideoMetricTasks
+     * const { count } = await prisma.videoMetricTask.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VideoMetricTaskDeleteManyArgs>(args?: SelectSubset<T, VideoMetricTaskDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VideoMetricTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoMetricTaskUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VideoMetricTasks
+     * const videoMetricTask = await prisma.videoMetricTask.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VideoMetricTaskUpdateManyArgs>(args: SelectSubset<T, VideoMetricTaskUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VideoMetricTasks and returns the data updated in the database.
+     * @param {VideoMetricTaskUpdateManyAndReturnArgs} args - Arguments to update many VideoMetricTasks.
+     * @example
+     * // Update many VideoMetricTasks
+     * const videoMetricTask = await prisma.videoMetricTask.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VideoMetricTasks and only return the `id`
+     * const videoMetricTaskWithIdOnly = await prisma.videoMetricTask.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VideoMetricTaskUpdateManyAndReturnArgs>(args: SelectSubset<T, VideoMetricTaskUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VideoMetricTask.
+     * @param {VideoMetricTaskUpsertArgs} args - Arguments to update or create a VideoMetricTask.
+     * @example
+     * // Update or create a VideoMetricTask
+     * const videoMetricTask = await prisma.videoMetricTask.upsert({
+     *   create: {
+     *     // ... data to create a VideoMetricTask
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VideoMetricTask we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VideoMetricTaskUpsertArgs>(args: SelectSubset<T, VideoMetricTaskUpsertArgs<ExtArgs>>): Prisma__VideoMetricTaskClient<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VideoMetricTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoMetricTaskCountArgs} args - Arguments to filter VideoMetricTasks to count.
+     * @example
+     * // Count the number of VideoMetricTasks
+     * const count = await prisma.videoMetricTask.count({
+     *   where: {
+     *     // ... the filter for the VideoMetricTasks we want to count
+     *   }
+     * })
+    **/
+    count<T extends VideoMetricTaskCountArgs>(
+      args?: Subset<T, VideoMetricTaskCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VideoMetricTaskCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VideoMetricTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoMetricTaskAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VideoMetricTaskAggregateArgs>(args: Subset<T, VideoMetricTaskAggregateArgs>): Prisma.PrismaPromise<GetVideoMetricTaskAggregateType<T>>
+
+    /**
+     * Group by VideoMetricTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VideoMetricTaskGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VideoMetricTaskGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VideoMetricTaskGroupByArgs['orderBy'] }
+        : { orderBy?: VideoMetricTaskGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VideoMetricTaskGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVideoMetricTaskGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VideoMetricTask model
+   */
+  readonly fields: VideoMetricTaskFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VideoMetricTask.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VideoMetricTaskClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    video<T extends VideoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VideoDefaultArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    social<T extends SocialDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SocialDefaultArgs<ExtArgs>>): Prisma__SocialClient<$Result.GetResult<Prisma.$SocialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VideoMetricTask model
+   */
+  interface VideoMetricTaskFieldRefs {
+    readonly id: FieldRef<"VideoMetricTask", 'Int'>
+    readonly video_id: FieldRef<"VideoMetricTask", 'Int'>
+    readonly social_id: FieldRef<"VideoMetricTask", 'Int'>
+    readonly postUrl: FieldRef<"VideoMetricTask", 'String'>
+    readonly status: FieldRef<"VideoMetricTask", 'String'>
+    readonly views: FieldRef<"VideoMetricTask", 'Int'>
+    readonly error: FieldRef<"VideoMetricTask", 'String'>
+    readonly updated_at: FieldRef<"VideoMetricTask", 'DateTime'>
+    readonly created_at: FieldRef<"VideoMetricTask", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VideoMetricTask findUnique
+   */
+  export type VideoMetricTaskFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoMetricTask to fetch.
+     */
+    where: VideoMetricTaskWhereUniqueInput
+  }
+
+  /**
+   * VideoMetricTask findUniqueOrThrow
+   */
+  export type VideoMetricTaskFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoMetricTask to fetch.
+     */
+    where: VideoMetricTaskWhereUniqueInput
+  }
+
+  /**
+   * VideoMetricTask findFirst
+   */
+  export type VideoMetricTaskFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoMetricTask to fetch.
+     */
+    where?: VideoMetricTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoMetricTasks to fetch.
+     */
+    orderBy?: VideoMetricTaskOrderByWithRelationInput | VideoMetricTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VideoMetricTasks.
+     */
+    cursor?: VideoMetricTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoMetricTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoMetricTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VideoMetricTasks.
+     */
+    distinct?: VideoMetricTaskScalarFieldEnum | VideoMetricTaskScalarFieldEnum[]
+  }
+
+  /**
+   * VideoMetricTask findFirstOrThrow
+   */
+  export type VideoMetricTaskFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoMetricTask to fetch.
+     */
+    where?: VideoMetricTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoMetricTasks to fetch.
+     */
+    orderBy?: VideoMetricTaskOrderByWithRelationInput | VideoMetricTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VideoMetricTasks.
+     */
+    cursor?: VideoMetricTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoMetricTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoMetricTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VideoMetricTasks.
+     */
+    distinct?: VideoMetricTaskScalarFieldEnum | VideoMetricTaskScalarFieldEnum[]
+  }
+
+  /**
+   * VideoMetricTask findMany
+   */
+  export type VideoMetricTaskFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which VideoMetricTasks to fetch.
+     */
+    where?: VideoMetricTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VideoMetricTasks to fetch.
+     */
+    orderBy?: VideoMetricTaskOrderByWithRelationInput | VideoMetricTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VideoMetricTasks.
+     */
+    cursor?: VideoMetricTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VideoMetricTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VideoMetricTasks.
+     */
+    skip?: number
+    distinct?: VideoMetricTaskScalarFieldEnum | VideoMetricTaskScalarFieldEnum[]
+  }
+
+  /**
+   * VideoMetricTask create
+   */
+  export type VideoMetricTaskCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VideoMetricTask.
+     */
+    data: XOR<VideoMetricTaskCreateInput, VideoMetricTaskUncheckedCreateInput>
+  }
+
+  /**
+   * VideoMetricTask createMany
+   */
+  export type VideoMetricTaskCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VideoMetricTasks.
+     */
+    data: VideoMetricTaskCreateManyInput | VideoMetricTaskCreateManyInput[]
+  }
+
+  /**
+   * VideoMetricTask createManyAndReturn
+   */
+  export type VideoMetricTaskCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * The data used to create many VideoMetricTasks.
+     */
+    data: VideoMetricTaskCreateManyInput | VideoMetricTaskCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VideoMetricTask update
+   */
+  export type VideoMetricTaskUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VideoMetricTask.
+     */
+    data: XOR<VideoMetricTaskUpdateInput, VideoMetricTaskUncheckedUpdateInput>
+    /**
+     * Choose, which VideoMetricTask to update.
+     */
+    where: VideoMetricTaskWhereUniqueInput
+  }
+
+  /**
+   * VideoMetricTask updateMany
+   */
+  export type VideoMetricTaskUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VideoMetricTasks.
+     */
+    data: XOR<VideoMetricTaskUpdateManyMutationInput, VideoMetricTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which VideoMetricTasks to update
+     */
+    where?: VideoMetricTaskWhereInput
+    /**
+     * Limit how many VideoMetricTasks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VideoMetricTask updateManyAndReturn
+   */
+  export type VideoMetricTaskUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * The data used to update VideoMetricTasks.
+     */
+    data: XOR<VideoMetricTaskUpdateManyMutationInput, VideoMetricTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which VideoMetricTasks to update
+     */
+    where?: VideoMetricTaskWhereInput
+    /**
+     * Limit how many VideoMetricTasks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VideoMetricTask upsert
+   */
+  export type VideoMetricTaskUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VideoMetricTask to update in case it exists.
+     */
+    where: VideoMetricTaskWhereUniqueInput
+    /**
+     * In case the VideoMetricTask found by the `where` argument doesn't exist, create a new VideoMetricTask with this data.
+     */
+    create: XOR<VideoMetricTaskCreateInput, VideoMetricTaskUncheckedCreateInput>
+    /**
+     * In case the VideoMetricTask was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VideoMetricTaskUpdateInput, VideoMetricTaskUncheckedUpdateInput>
+  }
+
+  /**
+   * VideoMetricTask delete
+   */
+  export type VideoMetricTaskDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    /**
+     * Filter which VideoMetricTask to delete.
+     */
+    where: VideoMetricTaskWhereUniqueInput
+  }
+
+  /**
+   * VideoMetricTask deleteMany
+   */
+  export type VideoMetricTaskDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VideoMetricTasks to delete
+     */
+    where?: VideoMetricTaskWhereInput
+    /**
+     * Limit how many VideoMetricTasks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VideoMetricTask without action
+   */
+  export type VideoMetricTaskDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
   }
 
 
@@ -2511,6 +3808,7 @@ export namespace Prisma {
     url?: boolean
     icon?: boolean
     posts?: boolean | Social$postsArgs<ExtArgs>
+    videoMetricTask?: boolean | Social$videoMetricTaskArgs<ExtArgs>
     _count?: boolean | SocialCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["social"]>
 
@@ -2538,6 +3836,7 @@ export namespace Prisma {
   export type SocialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "url" | "icon", ExtArgs["result"]["social"]>
   export type SocialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | Social$postsArgs<ExtArgs>
+    videoMetricTask?: boolean | Social$videoMetricTaskArgs<ExtArgs>
     _count?: boolean | SocialCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SocialIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2547,6 +3846,7 @@ export namespace Prisma {
     name: "Social"
     objects: {
       posts: Prisma.$PostPayload<ExtArgs>[]
+      videoMetricTask: Prisma.$VideoMetricTaskPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2948,6 +4248,7 @@ export namespace Prisma {
   export interface Prisma__SocialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     posts<T extends Social$postsArgs<ExtArgs> = {}>(args?: Subset<T, Social$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    videoMetricTask<T extends Social$videoMetricTaskArgs<ExtArgs> = {}>(args?: Subset<T, Social$videoMetricTaskArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoMetricTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3210,7 +4511,6 @@ export namespace Prisma {
      * The data used to create many Socials.
      */
     data: SocialCreateManyInput | SocialCreateManyInput[]
-    skipDuplicates?: boolean
   }
 
   /**
@@ -3229,7 +4529,6 @@ export namespace Prisma {
      * The data used to create many Socials.
      */
     data: SocialCreateManyInput | SocialCreateManyInput[]
-    skipDuplicates?: boolean
   }
 
   /**
@@ -3390,6 +4689,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * Social.videoMetricTask
+   */
+  export type Social$videoMetricTaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoMetricTask
+     */
+    select?: VideoMetricTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VideoMetricTask
+     */
+    omit?: VideoMetricTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoMetricTaskInclude<ExtArgs> | null
+    where?: VideoMetricTaskWhereInput
+    orderBy?: VideoMetricTaskOrderByWithRelationInput | VideoMetricTaskOrderByWithRelationInput[]
+    cursor?: VideoMetricTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VideoMetricTaskScalarFieldEnum | VideoMetricTaskScalarFieldEnum[]
   }
 
   /**
@@ -4334,7 +5657,6 @@ export namespace Prisma {
      * The data used to create many Posts.
      */
     data: PostCreateManyInput | PostCreateManyInput[]
-    skipDuplicates?: boolean
   }
 
   /**
@@ -4353,7 +5675,6 @@ export namespace Prisma {
      * The data used to create many Posts.
      */
     data: PostCreateManyInput | PostCreateManyInput[]
-    skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
@@ -5374,7 +6695,6 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
-    skipDuplicates?: boolean
   }
 
   /**
@@ -5393,7 +6713,6 @@ export namespace Prisma {
      * The data used to create many Users.
      */
     data: UserCreateManyInput | UserCreateManyInput[]
-    skipDuplicates?: boolean
   }
 
   /**
@@ -5540,9 +6859,6 @@ export namespace Prisma {
    */
 
   export const TransactionIsolationLevel: {
-    ReadUncommitted: 'ReadUncommitted',
-    ReadCommitted: 'ReadCommitted',
-    RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
   };
 
@@ -5559,6 +6875,21 @@ export namespace Prisma {
   };
 
   export type VideoScalarFieldEnum = (typeof VideoScalarFieldEnum)[keyof typeof VideoScalarFieldEnum]
+
+
+  export const VideoMetricTaskScalarFieldEnum: {
+    id: 'id',
+    video_id: 'video_id',
+    social_id: 'social_id',
+    postUrl: 'postUrl',
+    status: 'status',
+    views: 'views',
+    error: 'error',
+    updated_at: 'updated_at',
+    created_at: 'created_at'
+  };
+
+  export type VideoMetricTaskScalarFieldEnum = (typeof VideoMetricTaskScalarFieldEnum)[keyof typeof VideoMetricTaskScalarFieldEnum]
 
 
   export const SocialScalarFieldEnum: {
@@ -5600,14 +6931,6 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const QueryMode: {
-    default: 'default',
-    insensitive: 'insensitive'
-  };
-
-  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
   export const NullsOrder: {
     first: 'first',
     last: 'last'
@@ -5629,13 +6952,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -5643,23 +6959,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'String[]'
-   */
-  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -5674,13 +6976,6 @@ export namespace Prisma {
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -5698,6 +6993,7 @@ export namespace Prisma {
     reposted?: BoolFilter<"Video"> | boolean
     boosted?: BoolFilter<"Video"> | boolean
     posts?: PostListRelationFilter
+    VideoMetricTask?: VideoMetricTaskListRelationFilter
   }
 
   export type VideoOrderByWithRelationInput = {
@@ -5708,6 +7004,7 @@ export namespace Prisma {
     reposted?: SortOrder
     boosted?: SortOrder
     posts?: PostOrderByRelationAggregateInput
+    VideoMetricTask?: VideoMetricTaskOrderByRelationAggregateInput
   }
 
   export type VideoWhereUniqueInput = Prisma.AtLeast<{
@@ -5721,6 +7018,7 @@ export namespace Prisma {
     reposted?: BoolFilter<"Video"> | boolean
     boosted?: BoolFilter<"Video"> | boolean
     posts?: PostListRelationFilter
+    VideoMetricTask?: VideoMetricTaskListRelationFilter
   }, "id">
 
   export type VideoOrderByWithAggregationInput = {
@@ -5749,6 +7047,86 @@ export namespace Prisma {
     boosted?: BoolWithAggregatesFilter<"Video"> | boolean
   }
 
+  export type VideoMetricTaskWhereInput = {
+    AND?: VideoMetricTaskWhereInput | VideoMetricTaskWhereInput[]
+    OR?: VideoMetricTaskWhereInput[]
+    NOT?: VideoMetricTaskWhereInput | VideoMetricTaskWhereInput[]
+    id?: IntFilter<"VideoMetricTask"> | number
+    video_id?: IntFilter<"VideoMetricTask"> | number
+    social_id?: IntFilter<"VideoMetricTask"> | number
+    postUrl?: StringFilter<"VideoMetricTask"> | string
+    status?: StringFilter<"VideoMetricTask"> | string
+    views?: IntNullableFilter<"VideoMetricTask"> | number | null
+    error?: StringNullableFilter<"VideoMetricTask"> | string | null
+    updated_at?: DateTimeFilter<"VideoMetricTask"> | Date | string
+    created_at?: DateTimeFilter<"VideoMetricTask"> | Date | string
+    video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
+    social?: XOR<SocialScalarRelationFilter, SocialWhereInput>
+  }
+
+  export type VideoMetricTaskOrderByWithRelationInput = {
+    id?: SortOrder
+    video_id?: SortOrder
+    social_id?: SortOrder
+    postUrl?: SortOrder
+    status?: SortOrder
+    views?: SortOrderInput | SortOrder
+    error?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
+    created_at?: SortOrder
+    video?: VideoOrderByWithRelationInput
+    social?: SocialOrderByWithRelationInput
+  }
+
+  export type VideoMetricTaskWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: VideoMetricTaskWhereInput | VideoMetricTaskWhereInput[]
+    OR?: VideoMetricTaskWhereInput[]
+    NOT?: VideoMetricTaskWhereInput | VideoMetricTaskWhereInput[]
+    video_id?: IntFilter<"VideoMetricTask"> | number
+    social_id?: IntFilter<"VideoMetricTask"> | number
+    postUrl?: StringFilter<"VideoMetricTask"> | string
+    status?: StringFilter<"VideoMetricTask"> | string
+    views?: IntNullableFilter<"VideoMetricTask"> | number | null
+    error?: StringNullableFilter<"VideoMetricTask"> | string | null
+    updated_at?: DateTimeFilter<"VideoMetricTask"> | Date | string
+    created_at?: DateTimeFilter<"VideoMetricTask"> | Date | string
+    video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
+    social?: XOR<SocialScalarRelationFilter, SocialWhereInput>
+  }, "id">
+
+  export type VideoMetricTaskOrderByWithAggregationInput = {
+    id?: SortOrder
+    video_id?: SortOrder
+    social_id?: SortOrder
+    postUrl?: SortOrder
+    status?: SortOrder
+    views?: SortOrderInput | SortOrder
+    error?: SortOrderInput | SortOrder
+    updated_at?: SortOrder
+    created_at?: SortOrder
+    _count?: VideoMetricTaskCountOrderByAggregateInput
+    _avg?: VideoMetricTaskAvgOrderByAggregateInput
+    _max?: VideoMetricTaskMaxOrderByAggregateInput
+    _min?: VideoMetricTaskMinOrderByAggregateInput
+    _sum?: VideoMetricTaskSumOrderByAggregateInput
+  }
+
+  export type VideoMetricTaskScalarWhereWithAggregatesInput = {
+    AND?: VideoMetricTaskScalarWhereWithAggregatesInput | VideoMetricTaskScalarWhereWithAggregatesInput[]
+    OR?: VideoMetricTaskScalarWhereWithAggregatesInput[]
+    NOT?: VideoMetricTaskScalarWhereWithAggregatesInput | VideoMetricTaskScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"VideoMetricTask"> | number
+    video_id?: IntWithAggregatesFilter<"VideoMetricTask"> | number
+    social_id?: IntWithAggregatesFilter<"VideoMetricTask"> | number
+    postUrl?: StringWithAggregatesFilter<"VideoMetricTask"> | string
+    status?: StringWithAggregatesFilter<"VideoMetricTask"> | string
+    views?: IntNullableWithAggregatesFilter<"VideoMetricTask"> | number | null
+    error?: StringNullableWithAggregatesFilter<"VideoMetricTask"> | string | null
+    updated_at?: DateTimeWithAggregatesFilter<"VideoMetricTask"> | Date | string
+    created_at?: DateTimeWithAggregatesFilter<"VideoMetricTask"> | Date | string
+  }
+
   export type SocialWhereInput = {
     AND?: SocialWhereInput | SocialWhereInput[]
     OR?: SocialWhereInput[]
@@ -5758,6 +7136,7 @@ export namespace Prisma {
     url?: StringNullableFilter<"Social"> | string | null
     icon?: StringNullableFilter<"Social"> | string | null
     posts?: PostListRelationFilter
+    videoMetricTask?: VideoMetricTaskListRelationFilter
   }
 
   export type SocialOrderByWithRelationInput = {
@@ -5766,6 +7145,7 @@ export namespace Prisma {
     url?: SortOrderInput | SortOrder
     icon?: SortOrderInput | SortOrder
     posts?: PostOrderByRelationAggregateInput
+    videoMetricTask?: VideoMetricTaskOrderByRelationAggregateInput
   }
 
   export type SocialWhereUniqueInput = Prisma.AtLeast<{
@@ -5777,6 +7157,7 @@ export namespace Prisma {
     url?: StringNullableFilter<"Social"> | string | null
     icon?: StringNullableFilter<"Social"> | string | null
     posts?: PostListRelationFilter
+    videoMetricTask?: VideoMetricTaskListRelationFilter
   }, "id" | "name">
 
   export type SocialOrderByWithAggregationInput = {
@@ -5881,13 +7262,13 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
-    email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
-  }, "id">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -5918,6 +7299,7 @@ export namespace Prisma {
     reposted?: boolean
     boosted?: boolean
     posts?: PostCreateNestedManyWithoutVideoInput
+    VideoMetricTask?: VideoMetricTaskCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateInput = {
@@ -5928,6 +7310,7 @@ export namespace Prisma {
     reposted?: boolean
     boosted?: boolean
     posts?: PostUncheckedCreateNestedManyWithoutVideoInput
+    VideoMetricTask?: VideoMetricTaskUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUpdateInput = {
@@ -5937,6 +7320,7 @@ export namespace Prisma {
     reposted?: BoolFieldUpdateOperationsInput | boolean
     boosted?: BoolFieldUpdateOperationsInput | boolean
     posts?: PostUpdateManyWithoutVideoNestedInput
+    VideoMetricTask?: VideoMetricTaskUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateInput = {
@@ -5947,6 +7331,7 @@ export namespace Prisma {
     reposted?: BoolFieldUpdateOperationsInput | boolean
     boosted?: BoolFieldUpdateOperationsInput | boolean
     posts?: PostUncheckedUpdateManyWithoutVideoNestedInput
+    VideoMetricTask?: VideoMetricTaskUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoCreateManyInput = {
@@ -5975,11 +7360,91 @@ export namespace Prisma {
     boosted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type VideoMetricTaskCreateInput = {
+    postUrl: string
+    status?: string
+    views?: number | null
+    error?: string | null
+    updated_at?: Date | string
+    created_at?: Date | string
+    video: VideoCreateNestedOneWithoutVideoMetricTaskInput
+    social: SocialCreateNestedOneWithoutVideoMetricTaskInput
+  }
+
+  export type VideoMetricTaskUncheckedCreateInput = {
+    id?: number
+    video_id: number
+    social_id: number
+    postUrl: string
+    status?: string
+    views?: number | null
+    error?: string | null
+    updated_at?: Date | string
+    created_at?: Date | string
+  }
+
+  export type VideoMetricTaskUpdateInput = {
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    video?: VideoUpdateOneRequiredWithoutVideoMetricTaskNestedInput
+    social?: SocialUpdateOneRequiredWithoutVideoMetricTaskNestedInput
+  }
+
+  export type VideoMetricTaskUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    video_id?: IntFieldUpdateOperationsInput | number
+    social_id?: IntFieldUpdateOperationsInput | number
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoMetricTaskCreateManyInput = {
+    id?: number
+    video_id: number
+    social_id: number
+    postUrl: string
+    status?: string
+    views?: number | null
+    error?: string | null
+    updated_at?: Date | string
+    created_at?: Date | string
+  }
+
+  export type VideoMetricTaskUpdateManyMutationInput = {
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoMetricTaskUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    video_id?: IntFieldUpdateOperationsInput | number
+    social_id?: IntFieldUpdateOperationsInput | number
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SocialCreateInput = {
     name: string
     url?: string | null
     icon?: string | null
     posts?: PostCreateNestedManyWithoutSocialInput
+    videoMetricTask?: VideoMetricTaskCreateNestedManyWithoutSocialInput
   }
 
   export type SocialUncheckedCreateInput = {
@@ -5988,6 +7453,7 @@ export namespace Prisma {
     url?: string | null
     icon?: string | null
     posts?: PostUncheckedCreateNestedManyWithoutSocialInput
+    videoMetricTask?: VideoMetricTaskUncheckedCreateNestedManyWithoutSocialInput
   }
 
   export type SocialUpdateInput = {
@@ -5995,6 +7461,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUpdateManyWithoutSocialNestedInput
+    videoMetricTask?: VideoMetricTaskUpdateManyWithoutSocialNestedInput
   }
 
   export type SocialUncheckedUpdateInput = {
@@ -6003,6 +7470,7 @@ export namespace Prisma {
     url?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUncheckedUpdateManyWithoutSocialNestedInput
+    videoMetricTask?: VideoMetricTaskUncheckedUpdateManyWithoutSocialNestedInput
   }
 
   export type SocialCreateManyInput = {
@@ -6124,8 +7592,8 @@ export namespace Prisma {
 
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6135,8 +7603,8 @@ export namespace Prisma {
 
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6144,14 +7612,13 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6170,12 +7637,22 @@ export namespace Prisma {
     none?: PostWhereInput
   }
 
+  export type VideoMetricTaskListRelationFilter = {
+    every?: VideoMetricTaskWhereInput
+    some?: VideoMetricTaskWhereInput
+    none?: VideoMetricTaskWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type PostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VideoMetricTaskOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6216,8 +7693,8 @@ export namespace Prisma {
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6232,8 +7709,8 @@ export namespace Prisma {
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6241,7 +7718,6 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
     not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
@@ -6250,8 +7726,8 @@ export namespace Prisma {
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6272,8 +7748,8 @@ export namespace Prisma {
 
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6281,8 +7757,111 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type VideoScalarRelationFilter = {
+    is?: VideoWhereInput
+    isNot?: VideoWhereInput
+  }
+
+  export type SocialScalarRelationFilter = {
+    is?: SocialWhereInput
+    isNot?: SocialWhereInput
+  }
+
+  export type VideoMetricTaskCountOrderByAggregateInput = {
+    id?: SortOrder
+    video_id?: SortOrder
+    social_id?: SortOrder
+    postUrl?: SortOrder
+    status?: SortOrder
+    views?: SortOrder
+    error?: SortOrder
+    updated_at?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type VideoMetricTaskAvgOrderByAggregateInput = {
+    id?: SortOrder
+    video_id?: SortOrder
+    social_id?: SortOrder
+    views?: SortOrder
+  }
+
+  export type VideoMetricTaskMaxOrderByAggregateInput = {
+    id?: SortOrder
+    video_id?: SortOrder
+    social_id?: SortOrder
+    postUrl?: SortOrder
+    status?: SortOrder
+    views?: SortOrder
+    error?: SortOrder
+    updated_at?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type VideoMetricTaskMinOrderByAggregateInput = {
+    id?: SortOrder
+    video_id?: SortOrder
+    social_id?: SortOrder
+    postUrl?: SortOrder
+    status?: SortOrder
+    views?: SortOrder
+    error?: SortOrder
+    updated_at?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type VideoMetricTaskSumOrderByAggregateInput = {
+    id?: SortOrder
+    video_id?: SortOrder
+    social_id?: SortOrder
+    views?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type SocialCountOrderByAggregateInput = {
@@ -6312,34 +7891,6 @@ export namespace Prisma {
 
   export type SocialSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type VideoScalarRelationFilter = {
-    is?: VideoWhereInput
-    isNot?: VideoWhereInput
-  }
-
-  export type SocialScalarRelationFilter = {
-    is?: SocialWhereInput
-    isNot?: SocialWhereInput
   }
 
   export type PostVideo_idSocial_idCompoundUniqueInput = {
@@ -6419,11 +7970,25 @@ export namespace Prisma {
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
+  export type VideoMetricTaskCreateNestedManyWithoutVideoInput = {
+    create?: XOR<VideoMetricTaskCreateWithoutVideoInput, VideoMetricTaskUncheckedCreateWithoutVideoInput> | VideoMetricTaskCreateWithoutVideoInput[] | VideoMetricTaskUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: VideoMetricTaskCreateOrConnectWithoutVideoInput | VideoMetricTaskCreateOrConnectWithoutVideoInput[]
+    createMany?: VideoMetricTaskCreateManyVideoInputEnvelope
+    connect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+  }
+
   export type PostUncheckedCreateNestedManyWithoutVideoInput = {
     create?: XOR<PostCreateWithoutVideoInput, PostUncheckedCreateWithoutVideoInput> | PostCreateWithoutVideoInput[] | PostUncheckedCreateWithoutVideoInput[]
     connectOrCreate?: PostCreateOrConnectWithoutVideoInput | PostCreateOrConnectWithoutVideoInput[]
     createMany?: PostCreateManyVideoInputEnvelope
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type VideoMetricTaskUncheckedCreateNestedManyWithoutVideoInput = {
+    create?: XOR<VideoMetricTaskCreateWithoutVideoInput, VideoMetricTaskUncheckedCreateWithoutVideoInput> | VideoMetricTaskCreateWithoutVideoInput[] | VideoMetricTaskUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: VideoMetricTaskCreateOrConnectWithoutVideoInput | VideoMetricTaskCreateOrConnectWithoutVideoInput[]
+    createMany?: VideoMetricTaskCreateManyVideoInputEnvelope
+    connect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -6452,6 +8017,20 @@ export namespace Prisma {
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
   }
 
+  export type VideoMetricTaskUpdateManyWithoutVideoNestedInput = {
+    create?: XOR<VideoMetricTaskCreateWithoutVideoInput, VideoMetricTaskUncheckedCreateWithoutVideoInput> | VideoMetricTaskCreateWithoutVideoInput[] | VideoMetricTaskUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: VideoMetricTaskCreateOrConnectWithoutVideoInput | VideoMetricTaskCreateOrConnectWithoutVideoInput[]
+    upsert?: VideoMetricTaskUpsertWithWhereUniqueWithoutVideoInput | VideoMetricTaskUpsertWithWhereUniqueWithoutVideoInput[]
+    createMany?: VideoMetricTaskCreateManyVideoInputEnvelope
+    set?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    disconnect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    delete?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    connect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    update?: VideoMetricTaskUpdateWithWhereUniqueWithoutVideoInput | VideoMetricTaskUpdateWithWhereUniqueWithoutVideoInput[]
+    updateMany?: VideoMetricTaskUpdateManyWithWhereWithoutVideoInput | VideoMetricTaskUpdateManyWithWhereWithoutVideoInput[]
+    deleteMany?: VideoMetricTaskScalarWhereInput | VideoMetricTaskScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -6474,11 +8053,72 @@ export namespace Prisma {
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
   }
 
+  export type VideoMetricTaskUncheckedUpdateManyWithoutVideoNestedInput = {
+    create?: XOR<VideoMetricTaskCreateWithoutVideoInput, VideoMetricTaskUncheckedCreateWithoutVideoInput> | VideoMetricTaskCreateWithoutVideoInput[] | VideoMetricTaskUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: VideoMetricTaskCreateOrConnectWithoutVideoInput | VideoMetricTaskCreateOrConnectWithoutVideoInput[]
+    upsert?: VideoMetricTaskUpsertWithWhereUniqueWithoutVideoInput | VideoMetricTaskUpsertWithWhereUniqueWithoutVideoInput[]
+    createMany?: VideoMetricTaskCreateManyVideoInputEnvelope
+    set?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    disconnect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    delete?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    connect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    update?: VideoMetricTaskUpdateWithWhereUniqueWithoutVideoInput | VideoMetricTaskUpdateWithWhereUniqueWithoutVideoInput[]
+    updateMany?: VideoMetricTaskUpdateManyWithWhereWithoutVideoInput | VideoMetricTaskUpdateManyWithWhereWithoutVideoInput[]
+    deleteMany?: VideoMetricTaskScalarWhereInput | VideoMetricTaskScalarWhereInput[]
+  }
+
+  export type VideoCreateNestedOneWithoutVideoMetricTaskInput = {
+    create?: XOR<VideoCreateWithoutVideoMetricTaskInput, VideoUncheckedCreateWithoutVideoMetricTaskInput>
+    connectOrCreate?: VideoCreateOrConnectWithoutVideoMetricTaskInput
+    connect?: VideoWhereUniqueInput
+  }
+
+  export type SocialCreateNestedOneWithoutVideoMetricTaskInput = {
+    create?: XOR<SocialCreateWithoutVideoMetricTaskInput, SocialUncheckedCreateWithoutVideoMetricTaskInput>
+    connectOrCreate?: SocialCreateOrConnectWithoutVideoMetricTaskInput
+    connect?: SocialWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type VideoUpdateOneRequiredWithoutVideoMetricTaskNestedInput = {
+    create?: XOR<VideoCreateWithoutVideoMetricTaskInput, VideoUncheckedCreateWithoutVideoMetricTaskInput>
+    connectOrCreate?: VideoCreateOrConnectWithoutVideoMetricTaskInput
+    upsert?: VideoUpsertWithoutVideoMetricTaskInput
+    connect?: VideoWhereUniqueInput
+    update?: XOR<XOR<VideoUpdateToOneWithWhereWithoutVideoMetricTaskInput, VideoUpdateWithoutVideoMetricTaskInput>, VideoUncheckedUpdateWithoutVideoMetricTaskInput>
+  }
+
+  export type SocialUpdateOneRequiredWithoutVideoMetricTaskNestedInput = {
+    create?: XOR<SocialCreateWithoutVideoMetricTaskInput, SocialUncheckedCreateWithoutVideoMetricTaskInput>
+    connectOrCreate?: SocialCreateOrConnectWithoutVideoMetricTaskInput
+    upsert?: SocialUpsertWithoutVideoMetricTaskInput
+    connect?: SocialWhereUniqueInput
+    update?: XOR<XOR<SocialUpdateToOneWithWhereWithoutVideoMetricTaskInput, SocialUpdateWithoutVideoMetricTaskInput>, SocialUncheckedUpdateWithoutVideoMetricTaskInput>
+  }
+
   export type PostCreateNestedManyWithoutSocialInput = {
     create?: XOR<PostCreateWithoutSocialInput, PostUncheckedCreateWithoutSocialInput> | PostCreateWithoutSocialInput[] | PostUncheckedCreateWithoutSocialInput[]
     connectOrCreate?: PostCreateOrConnectWithoutSocialInput | PostCreateOrConnectWithoutSocialInput[]
     createMany?: PostCreateManySocialInputEnvelope
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type VideoMetricTaskCreateNestedManyWithoutSocialInput = {
+    create?: XOR<VideoMetricTaskCreateWithoutSocialInput, VideoMetricTaskUncheckedCreateWithoutSocialInput> | VideoMetricTaskCreateWithoutSocialInput[] | VideoMetricTaskUncheckedCreateWithoutSocialInput[]
+    connectOrCreate?: VideoMetricTaskCreateOrConnectWithoutSocialInput | VideoMetricTaskCreateOrConnectWithoutSocialInput[]
+    createMany?: VideoMetricTaskCreateManySocialInputEnvelope
+    connect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
   }
 
   export type PostUncheckedCreateNestedManyWithoutSocialInput = {
@@ -6488,8 +8128,11 @@ export namespace Prisma {
     connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
+  export type VideoMetricTaskUncheckedCreateNestedManyWithoutSocialInput = {
+    create?: XOR<VideoMetricTaskCreateWithoutSocialInput, VideoMetricTaskUncheckedCreateWithoutSocialInput> | VideoMetricTaskCreateWithoutSocialInput[] | VideoMetricTaskUncheckedCreateWithoutSocialInput[]
+    connectOrCreate?: VideoMetricTaskCreateOrConnectWithoutSocialInput | VideoMetricTaskCreateOrConnectWithoutSocialInput[]
+    createMany?: VideoMetricTaskCreateManySocialInputEnvelope
+    connect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
   }
 
   export type PostUpdateManyWithoutSocialNestedInput = {
@@ -6506,6 +8149,20 @@ export namespace Prisma {
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
   }
 
+  export type VideoMetricTaskUpdateManyWithoutSocialNestedInput = {
+    create?: XOR<VideoMetricTaskCreateWithoutSocialInput, VideoMetricTaskUncheckedCreateWithoutSocialInput> | VideoMetricTaskCreateWithoutSocialInput[] | VideoMetricTaskUncheckedCreateWithoutSocialInput[]
+    connectOrCreate?: VideoMetricTaskCreateOrConnectWithoutSocialInput | VideoMetricTaskCreateOrConnectWithoutSocialInput[]
+    upsert?: VideoMetricTaskUpsertWithWhereUniqueWithoutSocialInput | VideoMetricTaskUpsertWithWhereUniqueWithoutSocialInput[]
+    createMany?: VideoMetricTaskCreateManySocialInputEnvelope
+    set?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    disconnect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    delete?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    connect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    update?: VideoMetricTaskUpdateWithWhereUniqueWithoutSocialInput | VideoMetricTaskUpdateWithWhereUniqueWithoutSocialInput[]
+    updateMany?: VideoMetricTaskUpdateManyWithWhereWithoutSocialInput | VideoMetricTaskUpdateManyWithWhereWithoutSocialInput[]
+    deleteMany?: VideoMetricTaskScalarWhereInput | VideoMetricTaskScalarWhereInput[]
+  }
+
   export type PostUncheckedUpdateManyWithoutSocialNestedInput = {
     create?: XOR<PostCreateWithoutSocialInput, PostUncheckedCreateWithoutSocialInput> | PostCreateWithoutSocialInput[] | PostUncheckedCreateWithoutSocialInput[]
     connectOrCreate?: PostCreateOrConnectWithoutSocialInput | PostCreateOrConnectWithoutSocialInput[]
@@ -6518,6 +8175,20 @@ export namespace Prisma {
     update?: PostUpdateWithWhereUniqueWithoutSocialInput | PostUpdateWithWhereUniqueWithoutSocialInput[]
     updateMany?: PostUpdateManyWithWhereWithoutSocialInput | PostUpdateManyWithWhereWithoutSocialInput[]
     deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type VideoMetricTaskUncheckedUpdateManyWithoutSocialNestedInput = {
+    create?: XOR<VideoMetricTaskCreateWithoutSocialInput, VideoMetricTaskUncheckedCreateWithoutSocialInput> | VideoMetricTaskCreateWithoutSocialInput[] | VideoMetricTaskUncheckedCreateWithoutSocialInput[]
+    connectOrCreate?: VideoMetricTaskCreateOrConnectWithoutSocialInput | VideoMetricTaskCreateOrConnectWithoutSocialInput[]
+    upsert?: VideoMetricTaskUpsertWithWhereUniqueWithoutSocialInput | VideoMetricTaskUpsertWithWhereUniqueWithoutSocialInput[]
+    createMany?: VideoMetricTaskCreateManySocialInputEnvelope
+    set?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    disconnect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    delete?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    connect?: VideoMetricTaskWhereUniqueInput | VideoMetricTaskWhereUniqueInput[]
+    update?: VideoMetricTaskUpdateWithWhereUniqueWithoutSocialInput | VideoMetricTaskUpdateWithWhereUniqueWithoutSocialInput[]
+    updateMany?: VideoMetricTaskUpdateManyWithWhereWithoutSocialInput | VideoMetricTaskUpdateManyWithWhereWithoutSocialInput[]
+    deleteMany?: VideoMetricTaskScalarWhereInput | VideoMetricTaskScalarWhereInput[]
   }
 
   export type VideoCreateNestedOneWithoutPostsInput = {
@@ -6550,8 +8221,8 @@ export namespace Prisma {
 
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6561,8 +8232,8 @@ export namespace Prisma {
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6575,8 +8246,8 @@ export namespace Prisma {
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6591,8 +8262,8 @@ export namespace Prisma {
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6607,8 +8278,8 @@ export namespace Prisma {
 
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -6618,8 +8289,8 @@ export namespace Prisma {
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6635,8 +8306,8 @@ export namespace Prisma {
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6646,8 +8317,8 @@ export namespace Prisma {
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6668,8 +8339,8 @@ export namespace Prisma {
 
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6682,8 +8353,8 @@ export namespace Prisma {
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6695,6 +8366,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type PostCreateWithoutVideoInput = {
@@ -6717,7 +8415,36 @@ export namespace Prisma {
 
   export type PostCreateManyVideoInputEnvelope = {
     data: PostCreateManyVideoInput | PostCreateManyVideoInput[]
-    skipDuplicates?: boolean
+  }
+
+  export type VideoMetricTaskCreateWithoutVideoInput = {
+    postUrl: string
+    status?: string
+    views?: number | null
+    error?: string | null
+    updated_at?: Date | string
+    created_at?: Date | string
+    social: SocialCreateNestedOneWithoutVideoMetricTaskInput
+  }
+
+  export type VideoMetricTaskUncheckedCreateWithoutVideoInput = {
+    id?: number
+    social_id: number
+    postUrl: string
+    status?: string
+    views?: number | null
+    error?: string | null
+    updated_at?: Date | string
+    created_at?: Date | string
+  }
+
+  export type VideoMetricTaskCreateOrConnectWithoutVideoInput = {
+    where: VideoMetricTaskWhereUniqueInput
+    create: XOR<VideoMetricTaskCreateWithoutVideoInput, VideoMetricTaskUncheckedCreateWithoutVideoInput>
+  }
+
+  export type VideoMetricTaskCreateManyVideoInputEnvelope = {
+    data: VideoMetricTaskCreateManyVideoInput | VideoMetricTaskCreateManyVideoInput[]
   }
 
   export type PostUpsertWithWhereUniqueWithoutVideoInput = {
@@ -6747,6 +8474,137 @@ export namespace Prisma {
     post_date?: DateTimeFilter<"Post"> | Date | string
   }
 
+  export type VideoMetricTaskUpsertWithWhereUniqueWithoutVideoInput = {
+    where: VideoMetricTaskWhereUniqueInput
+    update: XOR<VideoMetricTaskUpdateWithoutVideoInput, VideoMetricTaskUncheckedUpdateWithoutVideoInput>
+    create: XOR<VideoMetricTaskCreateWithoutVideoInput, VideoMetricTaskUncheckedCreateWithoutVideoInput>
+  }
+
+  export type VideoMetricTaskUpdateWithWhereUniqueWithoutVideoInput = {
+    where: VideoMetricTaskWhereUniqueInput
+    data: XOR<VideoMetricTaskUpdateWithoutVideoInput, VideoMetricTaskUncheckedUpdateWithoutVideoInput>
+  }
+
+  export type VideoMetricTaskUpdateManyWithWhereWithoutVideoInput = {
+    where: VideoMetricTaskScalarWhereInput
+    data: XOR<VideoMetricTaskUpdateManyMutationInput, VideoMetricTaskUncheckedUpdateManyWithoutVideoInput>
+  }
+
+  export type VideoMetricTaskScalarWhereInput = {
+    AND?: VideoMetricTaskScalarWhereInput | VideoMetricTaskScalarWhereInput[]
+    OR?: VideoMetricTaskScalarWhereInput[]
+    NOT?: VideoMetricTaskScalarWhereInput | VideoMetricTaskScalarWhereInput[]
+    id?: IntFilter<"VideoMetricTask"> | number
+    video_id?: IntFilter<"VideoMetricTask"> | number
+    social_id?: IntFilter<"VideoMetricTask"> | number
+    postUrl?: StringFilter<"VideoMetricTask"> | string
+    status?: StringFilter<"VideoMetricTask"> | string
+    views?: IntNullableFilter<"VideoMetricTask"> | number | null
+    error?: StringNullableFilter<"VideoMetricTask"> | string | null
+    updated_at?: DateTimeFilter<"VideoMetricTask"> | Date | string
+    created_at?: DateTimeFilter<"VideoMetricTask"> | Date | string
+  }
+
+  export type VideoCreateWithoutVideoMetricTaskInput = {
+    title?: string | null
+    description?: string | null
+    created_at?: Date | string
+    reposted?: boolean
+    boosted?: boolean
+    posts?: PostCreateNestedManyWithoutVideoInput
+  }
+
+  export type VideoUncheckedCreateWithoutVideoMetricTaskInput = {
+    id?: number
+    title?: string | null
+    description?: string | null
+    created_at?: Date | string
+    reposted?: boolean
+    boosted?: boolean
+    posts?: PostUncheckedCreateNestedManyWithoutVideoInput
+  }
+
+  export type VideoCreateOrConnectWithoutVideoMetricTaskInput = {
+    where: VideoWhereUniqueInput
+    create: XOR<VideoCreateWithoutVideoMetricTaskInput, VideoUncheckedCreateWithoutVideoMetricTaskInput>
+  }
+
+  export type SocialCreateWithoutVideoMetricTaskInput = {
+    name: string
+    url?: string | null
+    icon?: string | null
+    posts?: PostCreateNestedManyWithoutSocialInput
+  }
+
+  export type SocialUncheckedCreateWithoutVideoMetricTaskInput = {
+    id?: number
+    name: string
+    url?: string | null
+    icon?: string | null
+    posts?: PostUncheckedCreateNestedManyWithoutSocialInput
+  }
+
+  export type SocialCreateOrConnectWithoutVideoMetricTaskInput = {
+    where: SocialWhereUniqueInput
+    create: XOR<SocialCreateWithoutVideoMetricTaskInput, SocialUncheckedCreateWithoutVideoMetricTaskInput>
+  }
+
+  export type VideoUpsertWithoutVideoMetricTaskInput = {
+    update: XOR<VideoUpdateWithoutVideoMetricTaskInput, VideoUncheckedUpdateWithoutVideoMetricTaskInput>
+    create: XOR<VideoCreateWithoutVideoMetricTaskInput, VideoUncheckedCreateWithoutVideoMetricTaskInput>
+    where?: VideoWhereInput
+  }
+
+  export type VideoUpdateToOneWithWhereWithoutVideoMetricTaskInput = {
+    where?: VideoWhereInput
+    data: XOR<VideoUpdateWithoutVideoMetricTaskInput, VideoUncheckedUpdateWithoutVideoMetricTaskInput>
+  }
+
+  export type VideoUpdateWithoutVideoMetricTaskInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reposted?: BoolFieldUpdateOperationsInput | boolean
+    boosted?: BoolFieldUpdateOperationsInput | boolean
+    posts?: PostUpdateManyWithoutVideoNestedInput
+  }
+
+  export type VideoUncheckedUpdateWithoutVideoMetricTaskInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reposted?: BoolFieldUpdateOperationsInput | boolean
+    boosted?: BoolFieldUpdateOperationsInput | boolean
+    posts?: PostUncheckedUpdateManyWithoutVideoNestedInput
+  }
+
+  export type SocialUpsertWithoutVideoMetricTaskInput = {
+    update: XOR<SocialUpdateWithoutVideoMetricTaskInput, SocialUncheckedUpdateWithoutVideoMetricTaskInput>
+    create: XOR<SocialCreateWithoutVideoMetricTaskInput, SocialUncheckedCreateWithoutVideoMetricTaskInput>
+    where?: SocialWhereInput
+  }
+
+  export type SocialUpdateToOneWithWhereWithoutVideoMetricTaskInput = {
+    where?: SocialWhereInput
+    data: XOR<SocialUpdateWithoutVideoMetricTaskInput, SocialUncheckedUpdateWithoutVideoMetricTaskInput>
+  }
+
+  export type SocialUpdateWithoutVideoMetricTaskInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    posts?: PostUpdateManyWithoutSocialNestedInput
+  }
+
+  export type SocialUncheckedUpdateWithoutVideoMetricTaskInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    posts?: PostUncheckedUpdateManyWithoutSocialNestedInput
+  }
+
   export type PostCreateWithoutSocialInput = {
     link: string
     post_date: Date | string
@@ -6767,7 +8625,36 @@ export namespace Prisma {
 
   export type PostCreateManySocialInputEnvelope = {
     data: PostCreateManySocialInput | PostCreateManySocialInput[]
-    skipDuplicates?: boolean
+  }
+
+  export type VideoMetricTaskCreateWithoutSocialInput = {
+    postUrl: string
+    status?: string
+    views?: number | null
+    error?: string | null
+    updated_at?: Date | string
+    created_at?: Date | string
+    video: VideoCreateNestedOneWithoutVideoMetricTaskInput
+  }
+
+  export type VideoMetricTaskUncheckedCreateWithoutSocialInput = {
+    id?: number
+    video_id: number
+    postUrl: string
+    status?: string
+    views?: number | null
+    error?: string | null
+    updated_at?: Date | string
+    created_at?: Date | string
+  }
+
+  export type VideoMetricTaskCreateOrConnectWithoutSocialInput = {
+    where: VideoMetricTaskWhereUniqueInput
+    create: XOR<VideoMetricTaskCreateWithoutSocialInput, VideoMetricTaskUncheckedCreateWithoutSocialInput>
+  }
+
+  export type VideoMetricTaskCreateManySocialInputEnvelope = {
+    data: VideoMetricTaskCreateManySocialInput | VideoMetricTaskCreateManySocialInput[]
   }
 
   export type PostUpsertWithWhereUniqueWithoutSocialInput = {
@@ -6786,12 +8673,29 @@ export namespace Prisma {
     data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutSocialInput>
   }
 
+  export type VideoMetricTaskUpsertWithWhereUniqueWithoutSocialInput = {
+    where: VideoMetricTaskWhereUniqueInput
+    update: XOR<VideoMetricTaskUpdateWithoutSocialInput, VideoMetricTaskUncheckedUpdateWithoutSocialInput>
+    create: XOR<VideoMetricTaskCreateWithoutSocialInput, VideoMetricTaskUncheckedCreateWithoutSocialInput>
+  }
+
+  export type VideoMetricTaskUpdateWithWhereUniqueWithoutSocialInput = {
+    where: VideoMetricTaskWhereUniqueInput
+    data: XOR<VideoMetricTaskUpdateWithoutSocialInput, VideoMetricTaskUncheckedUpdateWithoutSocialInput>
+  }
+
+  export type VideoMetricTaskUpdateManyWithWhereWithoutSocialInput = {
+    where: VideoMetricTaskScalarWhereInput
+    data: XOR<VideoMetricTaskUpdateManyMutationInput, VideoMetricTaskUncheckedUpdateManyWithoutSocialInput>
+  }
+
   export type VideoCreateWithoutPostsInput = {
     title?: string | null
     description?: string | null
     created_at?: Date | string
     reposted?: boolean
     boosted?: boolean
+    VideoMetricTask?: VideoMetricTaskCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutPostsInput = {
@@ -6801,6 +8705,7 @@ export namespace Prisma {
     created_at?: Date | string
     reposted?: boolean
     boosted?: boolean
+    VideoMetricTask?: VideoMetricTaskUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutPostsInput = {
@@ -6812,6 +8717,7 @@ export namespace Prisma {
     name: string
     url?: string | null
     icon?: string | null
+    videoMetricTask?: VideoMetricTaskCreateNestedManyWithoutSocialInput
   }
 
   export type SocialUncheckedCreateWithoutPostsInput = {
@@ -6819,6 +8725,7 @@ export namespace Prisma {
     name: string
     url?: string | null
     icon?: string | null
+    videoMetricTask?: VideoMetricTaskUncheckedCreateNestedManyWithoutSocialInput
   }
 
   export type SocialCreateOrConnectWithoutPostsInput = {
@@ -6843,6 +8750,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reposted?: BoolFieldUpdateOperationsInput | boolean
     boosted?: BoolFieldUpdateOperationsInput | boolean
+    VideoMetricTask?: VideoMetricTaskUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutPostsInput = {
@@ -6852,6 +8760,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     reposted?: BoolFieldUpdateOperationsInput | boolean
     boosted?: BoolFieldUpdateOperationsInput | boolean
+    VideoMetricTask?: VideoMetricTaskUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type SocialUpsertWithoutPostsInput = {
@@ -6869,6 +8778,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    videoMetricTask?: VideoMetricTaskUpdateManyWithoutSocialNestedInput
   }
 
   export type SocialUncheckedUpdateWithoutPostsInput = {
@@ -6876,6 +8786,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     url?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    videoMetricTask?: VideoMetricTaskUncheckedUpdateManyWithoutSocialNestedInput
   }
 
   export type PostCreateManyVideoInput = {
@@ -6883,6 +8794,17 @@ export namespace Prisma {
     social_id: number
     link: string
     post_date: Date | string
+  }
+
+  export type VideoMetricTaskCreateManyVideoInput = {
+    id?: number
+    social_id: number
+    postUrl: string
+    status?: string
+    views?: number | null
+    error?: string | null
+    updated_at?: Date | string
+    created_at?: Date | string
   }
 
   export type PostUpdateWithoutVideoInput = {
@@ -6905,11 +8827,54 @@ export namespace Prisma {
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type VideoMetricTaskUpdateWithoutVideoInput = {
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    social?: SocialUpdateOneRequiredWithoutVideoMetricTaskNestedInput
+  }
+
+  export type VideoMetricTaskUncheckedUpdateWithoutVideoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    social_id?: IntFieldUpdateOperationsInput | number
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoMetricTaskUncheckedUpdateManyWithoutVideoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    social_id?: IntFieldUpdateOperationsInput | number
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PostCreateManySocialInput = {
     id?: number
     video_id: number
     link: string
     post_date: Date | string
+  }
+
+  export type VideoMetricTaskCreateManySocialInput = {
+    id?: number
+    video_id: number
+    postUrl: string
+    status?: string
+    views?: number | null
+    error?: string | null
+    updated_at?: Date | string
+    created_at?: Date | string
   }
 
   export type PostUpdateWithoutSocialInput = {
@@ -6930,6 +8895,38 @@ export namespace Prisma {
     video_id?: IntFieldUpdateOperationsInput | number
     link?: StringFieldUpdateOperationsInput | string
     post_date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoMetricTaskUpdateWithoutSocialInput = {
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    video?: VideoUpdateOneRequiredWithoutVideoMetricTaskNestedInput
+  }
+
+  export type VideoMetricTaskUncheckedUpdateWithoutSocialInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    video_id?: IntFieldUpdateOperationsInput | number
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VideoMetricTaskUncheckedUpdateManyWithoutSocialInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    video_id?: IntFieldUpdateOperationsInput | number
+    postUrl?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    views?: NullableIntFieldUpdateOperationsInput | number | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

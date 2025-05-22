@@ -25,25 +25,9 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
         const { title, description, posts } = body;
 
-        console.log("BODY: ", body);
-
         if (!title || !posts || !Array.isArray(posts)) {
             return NextResponse.json({ error: 'Título e postagens são obrigatórios.' }, { status: 400 });
         }
-
-        console.log("QUERY: ", JSON.stringify({
-            title,
-            description,
-            posts: {
-                create: posts.map((post: any) => ({
-                    social: {
-                        connect: { id: post.social_id },
-                    },
-                    link: post.link,
-                    post_date: new Date(post.post_date),
-                })),
-            },
-        }));
 
         const novoVideo = await prisma.video.create({
             data: {
@@ -68,5 +52,29 @@ export async function POST(req: NextRequest) {
     } catch (error) {
         console.error('[POST /api/videos]', error);
         return NextResponse.json({ error: 'Erro ao cadastrar vídeo.' }, { status: 500 });
+    }
+}
+
+export async function DELETE(req: NextRequest) {
+    const videoId = req.nextUrl.searchParams.get('id');
+
+    if (!videoId) {
+        return new Response(JSON.stringify({ error: 'Missing video ID' }), { status: 400 });
+    }
+
+    try {
+        // Remove as tarefas de métricas associadas (se existirem)
+        await prisma.videoMetricTask.deleteMany({ where: { video_id: Number(videoId) } });
+
+        // Remove os posts vinculados ao vídeo
+        await prisma.post.deleteMany({ where: { video_id: Number(videoId) } });
+
+        // Remove o vídeo
+        await prisma.video.delete({ where: { id: Number(videoId) } });
+
+        return new Response(JSON.stringify({ message: 'Vídeo excluído com sucesso' }), { status: 200 });
+    } catch (error) {
+        console.error('Erro ao excluir vídeo:', error);
+        return new Response(JSON.stringify({ error: 'Erro ao excluir vídeo' }), { status: 500 });
     }
 }
