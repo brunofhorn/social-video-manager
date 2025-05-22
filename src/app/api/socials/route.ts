@@ -32,11 +32,11 @@ export async function DELETE(req: NextRequest) {
   if (!id) return NextResponse.json({ error: 'ID não informado.' }, { status: 400 });
 
   try {
-    const relatedPosts = await prisma.post.findFirst({ where: { social_id: id } });
+    const relatedPosts = await prisma.post.findFirst({ where: { social_id: Number(id) } });
     if (relatedPosts) {
       return NextResponse.json({ error: 'Esta rede social está vinculada a um vídeo e não pode ser removida.' }, { status: 409 });
     }
-    await prisma.social.delete({ where: { id } });
+    await prisma.social.delete({ where: { id: Number(id) } });
     return NextResponse.json({ message: 'Removido com sucesso.' });
   } catch (error) {
     console.error('[DELETE /api/socials]', error);
