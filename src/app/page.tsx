@@ -1,15 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Form, Input, Typography, message } from 'antd';
+import { Button, Form, Input, Typography, message, notification } from 'antd';
 import { useRouter } from 'next/navigation';
 import { Lock, EnvelopeSimple } from '@phosphor-icons/react';
 
 export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
 
-  async function handleSubmit(values: any){
+  async function handleSubmit(values: any) {
     setLoading(true);
 
     try {
@@ -20,15 +21,30 @@ export default function LoginPage() {
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Erro desconhecido');
-      }
+        api.open({
+          type: "error",
+          message: "Ocorreu um erro ao tentar efetuar o login.",
+        });
 
-      message.success('Login bem-sucedido!');
-      router.push('/dashboard/videos');
+        return;
+      } else {
+        const data = await res.json();
+
+        localStorage.setItem("@social-video-manager-user-1.0.0", JSON.stringify(data));
+        api.open({
+          type: "success",
+          message: "Login bem-sucedido! Redirecionando..."
+        });
+
+        router.push("/dashboard/videos");
+      }
     } catch (err) {
+      api.open({
+        type: "error",
+        message: "Ocorreu um erro ao tentar efetuar o login."
+      });
+
       console.error('Erro inesperado durante login:', err);
-      message.error('Erro ao tentar fazer login.');
     } finally {
       setLoading(false);
     }
@@ -37,6 +53,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      {contextHolder}
       <div className="p-8 max-w-md w-full bg-white rounded shadow-md">
         <Typography.Title level={3} className="text-center">Social Video Manager</Typography.Title>
         <Form layout="vertical" onFinish={handleSubmit}>
