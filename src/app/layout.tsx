@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { ConfigProvider } from "antd";
+import { defaultTheme } from "@/interfaces/theme";
 
 const poppins = Poppins({
   weight: "400",
@@ -17,7 +19,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${poppins.variable} antialiased`}>
-        {children}
+        <ConfigProvider theme={defaultTheme}>
+          {children}
+        </ConfigProvider>
       </body>
     </html>
   );

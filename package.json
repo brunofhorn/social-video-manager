@@ -15,6 +15,7 @@
     "antd": "^5.24.9",
     "bcrypt": "^6.0.0",
     "dayjs": "^1.11.13",
+    "jsonwebtoken": "^9.0.2",
     "next": "15.3.1",
     "postcss": "^8.5.3",
     "puppeteer": "^24.7.2",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.4",
     "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

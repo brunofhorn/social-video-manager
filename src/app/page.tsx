@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Form, Input, Typography, message, notification } from 'antd';
+import { Button, Form, Input, Typography, notification } from 'antd';
 import { useRouter } from 'next/navigation';
 import { Lock, EnvelopeSimple } from '@phosphor-icons/react';
 
@@ -23,17 +23,16 @@ export default function LoginPage() {
       if (!res.ok) {
         api.open({
           type: "error",
-          message: "Ocorreu um erro ao tentar efetuar o login.",
+          message: "Dados de login inválidos.",
+          placement: "bottom"
         });
 
         return;
       } else {
-        const data = await res.json();
-
-        localStorage.setItem("@social-video-manager-user-1.0.0", JSON.stringify(data));
         api.open({
           type: "success",
-          message: "Login bem-sucedido! Redirecionando..."
+          message: "Login bem-sucedido! Redirecionando...",
+          placement: "bottom"
         });
 
         router.push("/dashboard/videos");
@@ -41,7 +40,8 @@ export default function LoginPage() {
     } catch (err) {
       api.open({
         type: "error",
-        message: "Ocorreu um erro ao tentar efetuar o login."
+        message: "Ocorreu um erro ao tentar efetuar o login.",
+        placement: "bottom"
       });
 
       console.error('Erro inesperado durante login:', err);
@@ -52,22 +52,23 @@ export default function LoginPage() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900">
       {contextHolder}
-      <div className="p-8 max-w-md w-full bg-white rounded shadow-md">
+      <div className="p-8 max-w-md w-full bg-gray-800 rounded shadow-md">
         <Typography.Title level={3} className="text-center">Social Video Manager</Typography.Title>
         <Form layout="vertical" onFinish={handleSubmit}>
           <Form.Item name="email" label="E-mail" rules={[{ required: true, message: 'Informe o e-mail' }]}>
-            <Input prefix={<EnvelopeSimple size={20} />} placeholder="Digite seu e-mail" />
+            <Input prefix={<EnvelopeSimple size={20}/>} placeholder="Digite seu e-mail" className='h-11'  />
           </Form.Item>
-          <Form.Item name="senha" label="Senha" rules={[{ required: true, message: 'Informe a senha' }]}>
-            <Input.Password prefix={<Lock size={20} />} placeholder="Digite sua senha" />
+          <Form.Item name="password" label="Senha" rules={[{ required: true, message: 'Informe a senha' }]}>
+            <Input.Password prefix={<Lock size={20} />} placeholder="Digite sua senha" className='h-11' />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading} block>
+            <Button htmlType="submit" loading={loading} block type='primary' style={{height: 50, textTransform: 'uppercase'}}>
               Entrar
             </Button>
           </Form.Item>
+          <Typography.Link className='flex w-full text-center' href='/register'>Cadastrar-se</Typography.Link>
         </Form>
       </div>
     </div>

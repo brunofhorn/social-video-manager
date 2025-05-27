@@ -1,26 +1,10 @@
-@import "tailwindcss";
-
-:root {
-  --background: #0A0A0A;
-  --foreground: #ededed;
-}
+@layer reset, theme, base, components, utilities, antd;
+@import 'tailwindcss';
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ededed;
-    --foreground: #0A0A0A;
-  }
+  --font-poppins: var(--font-poppins);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Poppins, sans-serif;
 }
