@@ -86,6 +86,9 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -135,6 +138,11 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 exports.Prisma.NullsOrder = {
@@ -188,18 +196,18 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "postgresql",
   "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": null,
-        "value": "file:./social-video-manager-db.db"
+        "fromEnvVar": "NEXT_DATABASE_URL",
+        "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma/client\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./social-video-manager-db.db\"\n}\n\nmodel Video {\n  id          Int      @id @default(autoincrement())\n  title       String?\n  description String?\n  created_at  DateTime @default(now())\n  reposted    Boolean  @default(false)\n  boosted     Boolean  @default(false)\n\n  posts           Post[]\n  VideoMetricTask VideoMetricTask[]\n\n  @@map(\"videos\")\n}\n\nmodel VideoMetricTask {\n  id         Int      @id @default(autoincrement())\n  video_id   Int\n  social_id  Int\n  postUrl    String\n  status     String   @default(\"PENDENTE\")\n  views      Int?\n  error      String?\n  updated_at DateTime @updatedAt\n  created_at DateTime @default(now())\n\n  video  Video  @relation(fields: [video_id], references: [id])\n  social Social @relation(fields: [social_id], references: [id])\n\n  @@map(\"video_metric_tasks\")\n}\n\nmodel Social {\n  id              Int               @id @default(autoincrement())\n  name            String            @unique\n  url             String?\n  icon            String?\n  posts           Post[]\n  videoMetricTask VideoMetricTask[]\n\n  @@map(\"socials\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  video_id  Int\n  social_id Int\n  link      String\n  post_date DateTime\n\n  video  Video  @relation(fields: [video_id], references: [id])\n  social Social @relation(fields: [social_id], references: [id])\n\n  @@unique([video_id, social_id])\n  @@map(\"posts\")\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  name     String\n  email    String @unique\n  password String\n\n  @@map(\"users\")\n}\n",
-  "inlineSchemaHash": "67ceee13324ff418e89fb4252a104cdae0e10343ba007f713138de82dd7f8609",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"NEXT_DATABASE_URL\")\n}\n\nmodel Video {\n  id          Int      @id @default(autoincrement())\n  title       String?\n  description String?\n  created_at  DateTime @default(now())\n  reposted    Boolean  @default(false)\n  boosted     Boolean  @default(false)\n\n  posts           Post[]\n  VideoMetricTask VideoMetricTask[]\n\n  @@map(\"videos\")\n}\n\nmodel VideoMetricTask {\n  id         Int      @id @default(autoincrement())\n  video_id   Int\n  social_id  Int\n  postUrl    String\n  status     String   @default(\"PENDENTE\")\n  views      Int?\n  error      String?\n  updated_at DateTime @updatedAt\n  created_at DateTime @default(now())\n\n  video  Video  @relation(fields: [video_id], references: [id])\n  social Social @relation(fields: [social_id], references: [id])\n\n  @@map(\"video_metric_tasks\")\n}\n\nmodel Social {\n  id              Int               @id @default(autoincrement())\n  name            String            @unique\n  url             String?\n  icon            String?\n  posts           Post[]\n  videoMetricTask VideoMetricTask[]\n\n  @@map(\"socials\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  video_id  Int\n  social_id Int\n  link      String\n  post_date DateTime\n\n  video  Video  @relation(fields: [video_id], references: [id])\n  social Social @relation(fields: [social_id], references: [id])\n\n  @@unique([video_id, social_id])\n  @@map(\"posts\")\n}\n\nmodel User {\n  id       Int    @id @default(autoincrement())\n  name     String\n  email    String @unique\n  password String\n\n  @@map(\"users\")\n}\n",
+  "inlineSchemaHash": "374c5930f3b1248e2265bc8659d291f6d7f4ba8c9776e73b628a3bb4a1d82c24",
   "copyEngine": true
 }
 config.dirname = '/'
@@ -210,7 +218,9 @@ config.engineWasm = undefined
 config.compilerWasm = undefined
 
 config.injectableEdgeEnv = () => ({
-  parsed: {}
+  parsed: {
+    NEXT_DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['NEXT_DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.NEXT_DATABASE_URL || undefined
+  }
 })
 
 if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {

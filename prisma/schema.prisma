@@ -4,8 +4,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./social-video-manager-db.db"
+  provider = "postgresql"
+  url      = env("NEXT_DATABASE_URL")
 }
 
 model Video {
