@@ -9,8 +9,9 @@ export default function RegisterPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
-    const onFinish = async (values: any) => {
+    async function handleRegister(values: any) {
         setLoading(true);
+        
         try {
             const res = await fetch('/api/auth/register', {
                 method: 'POST',
@@ -37,7 +38,7 @@ export default function RegisterPage() {
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <div className="p-8 max-w-md w-full bg-white rounded shadow-md">
                 <Typography.Title level={3} className="text-center">Cadastro</Typography.Title>
-                <Form layout="vertical" onFinish={onFinish}>
+                <Form layout="vertical" onFinish={handleRegister}>
                     <Form.Item name="name" label="Nome" rules={[{ required: true, message: 'Informe seu nome' }]}>
                         <Input prefix={<User size={20} />} placeholder="Digite seu nome" />
                     </Form.Item>

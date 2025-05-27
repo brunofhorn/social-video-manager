@@ -9,7 +9,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const onFinish = async (values: any) => {
+  async function handleSubmit(values: any){
     setLoading(true);
 
     try {
@@ -39,7 +39,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="p-8 max-w-md w-full bg-white rounded shadow-md">
         <Typography.Title level={3} className="text-center">Social Video Manager</Typography.Title>
-        <Form layout="vertical" onFinish={onFinish}>
+        <Form layout="vertical" onFinish={handleSubmit}>
           <Form.Item name="email" label="E-mail" rules={[{ required: true, message: 'Informe o e-mail' }]}>
             <Input prefix={<EnvelopeSimple size={20} />} placeholder="Digite seu e-mail" />
           </Form.Item>
