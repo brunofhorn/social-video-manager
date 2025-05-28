@@ -18,9 +18,9 @@ export default function ConfiguracoesPage() {
 
   const fetchSocials = async () => {
     try {
-      const res = await fetch('/api/socials');
-      const data = await res.json();
-      setSocials(data);
+      // const res = await fetch('/api/socials');
+      // const data = await res.json();
+      // setSocials(data);
     } catch (error) {
       console.error("❌ [api/socials] Erro ao buscar redes sociais.");
     } finally {

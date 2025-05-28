@@ -31,19 +31,20 @@ export default function VideoList() {
 
     const handleEdit = (record: any) => {
         setEditing(record);
-        form.setFieldsValue({
-            title: record.title,
-            description: record.description,
-            reposted: record.reposted,
-            boosted: record.boosted,
-        });
+        // form.setFieldsValue({
+        //     title: record.title,
+        //     description: record.description,
+        //     reposted: record.reposted,
+        //     boosted: record.boosted,
+        // });
     };
 
     const handleUpdate = async () => {
         setLoadingVideos(true)
 
         try {
-            const values = await form.validateFields();
+            // const values = await form.validateFields();
+            const values = {}
             const res = await fetch('/api/videos', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -62,18 +63,18 @@ export default function VideoList() {
 
     const loadData = async () => {
         try {
-            const [videosRes, socialsRes] = await Promise.all([
-                fetch('/api/videos'),
-                fetch('/api/socials')
-            ]);
+            // const [videosRes, socialsRes] = await Promise.all([
+            //     fetch('/api/videos'),
+            //     fetch('/api/socials')
+            // ]);
 
-            const [videosData, socialsData] = await Promise.all([
-                videosRes.json(),
-                socialsRes.json()
-            ]);
+            // const [videosData, socialsData] = await Promise.all([
+            //     videosRes.json(),
+            //     socialsRes.json()
+            // ]);
 
-            setVideos(videosData);
-            setSocials(socialsData);
+            // setVideos(videosData);
+            // setSocials(socialsData);
             setLoadingVideos(false)
         } catch (err) {
             console.error('Erro ao carregar dados');
@@ -92,20 +93,20 @@ export default function VideoList() {
         <div className="w-full max-w-screen-xl mx-auto px-4 py-8">
             <Typography.Title level={2}>Vídeos Postados</Typography.Title>
 
-            <Card className="mb-6">
+            <div className="mb-6">
                 <Space direction="vertical" className="w-full">
                     <Select
                         allowClear
                         className="w-full max-w-xs"
                         placeholder="Filtrar por rede social"
                         value={filterSocial || undefined}
-                        onChange={value => setFilterSocial(value || null)}
+                        onChange={(value: any) => setFilterSocial(value || null)}
                         options={socials.map((s: any) => ({ label: s.name, value: s.id }))}
                     />
                 </Space>
-            </Card>
+            </div>
 
-            <Card>
+            <div>
                 <Table
                     rowKey="id"
                     dataSource={filteredVideos}
@@ -179,7 +180,7 @@ export default function VideoList() {
                         }
                     ]}
                 />
-            </Card>
+            </div>
 
             <Modal
                 open={!!editing}

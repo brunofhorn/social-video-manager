@@ -21,9 +21,9 @@ export default function CadastroVideoPage() {
   const [api, context] = notification.useNotification();
 
   useEffect(() => {
-    fetch('/api/socials')
-      .then(res => res.json())
-      .then(data => setSocials(data));
+    // fetch('/api/socials')
+    //   .then(res => res.json())
+    //   .then(data => setSocials(data));
   }, []);
 
   const handleAddPost = () => {
