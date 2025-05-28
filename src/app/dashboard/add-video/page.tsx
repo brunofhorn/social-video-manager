@@ -67,7 +67,6 @@ export default function CadastroVideoPage() {
         throw new Error("Ocorreu um erro ao tentar cadastrar o vídeo.");
       }
 
-      form.resetFields();
       setPosts([])
       api.open({
         message: "Vídeo cadastrado com sucesso!",
@@ -89,7 +88,6 @@ export default function CadastroVideoPage() {
       {context}
       <Typography.Title level={2} className="mb-6">Cadastrar Vídeo</Typography.Title>
 
-      <Card>
         <Form layout="vertical" form={form} onFinish={onFinish}>
           <Row gutter={16}>
             <Col xs={24} md={12}>
@@ -107,21 +105,9 @@ export default function CadastroVideoPage() {
           <Typography.Title level={4}>Postagens</Typography.Title>
 
           {posts.map((post, index) => (
-            <Card
+            <div
               key={index}
               className="!mb-4"
-              type="inner"
-              title={`Postagem #${index + 1}`}
-              extra={posts.length > 1 && (
-                <Popconfirm
-                  title="Remover esta postagem?"
-                  onConfirm={() => handleRemovePost(index)}
-                  okText="Sim"
-                  cancelText="Cancelar"
-                >
-                  <Button type="link" danger size="small">Remover</Button>
-                </Popconfirm>
-              )}
             >
               <Row gutter={16}>
                 <Col xs={24} md={8}>
@@ -129,7 +115,7 @@ export default function CadastroVideoPage() {
                     <Select
                       placeholder="Selecione a rede social"
                       value={post.social_id}
-                      onChange={(value) => handleChangePost(index, 'social_id', value)}
+                      onChange={(value: any) => handleChangePost(index, 'social_id', value)}
                       options={socials.map((s: any) => ({ label: s.name, value: s.id }))}
                     />
                   </Form.Item>
@@ -139,7 +125,7 @@ export default function CadastroVideoPage() {
                     <Input
                       placeholder="URL da postagem"
                       value={post.link}
-                      onChange={(e) => handleChangePost(index, 'link', e.target.value)}
+                      onChange={(e: any) => handleChangePost(index, 'link', e.target.value)}
                     />
                   </Form.Item>
                 </Col>
@@ -154,7 +140,7 @@ export default function CadastroVideoPage() {
                   </Form.Item>
                 </Col>
               </Row>
-            </Card>
+            </div>
           ))}
 
           <Form.Item>
@@ -174,7 +160,6 @@ export default function CadastroVideoPage() {
             </Button>
           </Form.Item>
         </Form>
-      </Card>
     </div>
   );
 }
